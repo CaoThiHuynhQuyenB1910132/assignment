@@ -12,7 +12,10 @@ use Livewire\Component;
 
 class Location extends Component
 {
-    public $name, $email, $houseNumber, $phone;
+    public $name;
+    public $email;
+    public $houseNumber;
+    public $phone;
     public $provinceId;
     public $districts = [];
     public $districtId;
