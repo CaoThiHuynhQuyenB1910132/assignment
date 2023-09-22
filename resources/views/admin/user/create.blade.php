@@ -11,111 +11,106 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <form action="{{ route('store.user') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('store.user') }}" method="POST">
                         @csrf
 
-                        <div class="row formtype">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Họ Tên</label>
-                                    <input class="form-control" type="text" name="name">
-                                    @error('name')
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="row">
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Giới Tính</label>
-                                    <select class="form-control" @error('gender') is-invalid @enderror" name="gender">
-                                        <option value="">Choose a status</option>
-                                        <option value="man">Man</option>
-                                        <option value="woman">Woman</option>
-                                    </select>
-                                    @error('gender')
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
+                                        <div class="col-lg-6 mb-3">
+                                            <label>User Name</label>
+                                            <input class="form-control" type="text" name="name">
+                                            @error('name')
+                                            <span class="text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Nổi Bật</label>
-                                    <select class="form-control @error('status') is-invalid @enderror" name="status">
-                                        <option value="">Choose a status</option>
-                                        <option value="1">Nổi Bật</option>
-                                        <option value="0">Không Nổi Bật</option>
-                                    </select>
+                                        <div class="col-lg-6 mb-3">
+                                            <label>Gender</label>
+                                            <select class="form-control @error('gender') is-invalid @enderror" name="gender">
+                                                <option value="">Choose a status</option>
+                                                <option value="1">Woman</option>
+                                                <option value="0">Man</option>
+                                            </select>
+                                            @error('gender')
+                                            <span class="text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
 
-                                    @error('status')
-                                    <span class="text-danger" role="alert">
+                                        <div class="col-lg-6 mb-3">
+                                            <label>Status</label>
+                                            <select class="form-control @error('status') is-invalid @enderror" name="status">
+                                                <option value="">Choose a status</option>
+                                                <option value="1">Active</option>
+                                                <option value="0">Block</option>
+                                            </select>
+
+                                            @error('status')
+                                            <span class="text-danger" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-lg-6 mb-3">
+                                            <label>Phone Number</label>
+                                            <input class="form-control @error('phone') is-invalid @enderror" type="number" name="phone" id="phone">
+
+                                            @error('phone')
+                                            <span class="text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-lg-6 mb-3">
+                                            <label>Email</label>
+                                            <input class="form-control" type="email" name="email">
+                                            @error('email')
+                                            <span class="text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-lg-6 mb-3">
+                                            <label>Password</label>
+                                            <input class="form-control" type="password" name="password" id="password">
+
+                                            <p id="showHidePassword" style="cursor:pointer;">Show password</p>
+                                            @error('password')
+                                            <span class="text-danger" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
-                                    @enderror
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-lg-6 mb-3">
+                                            <label>Role</label>
+                                            <select class="form-control" @error('is_admin') is-invalid @enderror" name="is_admin">
+                                            <option value="">Choose a status</option>
+                                            <option value="1">Admin</option>
+                                            <option value="0">User</option>
+                                            </select>
+                                            @error('is_admin')
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Số Điện Thoại</label>
-                                    <input class="form-control" type="number" name="phone">
-                                    @error('phone')
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input class="form-control" type="email" name="email">
-                                    @error('email')
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input class="form-control" type="password" name="password" id="password">
-
-                                    <p id="showHidePassword" style="cursor:pointer;">Show password</p>
-                                    @error('password')
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Là Quản Trị Viên ?</label>
-                                    <select class="form-control" @error('is_admin') is-invalid @enderror" name="is_admin">
-                                        <option value="">Choose a status</option>
-                                        <option value="1">Phải</option>
-                                        <option value="0">Không</option>
-                                    </select>
-                                    @error('is_admin')
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+                            <div class="col-lg-12 d-flex justify-content-center">
+                                <button class="btn btn-primary" type="submit">Save</button>
                             </div>
                         </div>
-
-                        <button type="submit" class="btn btn-primary buttonedit ml-2">Thêm Người Dùng</button>
                     </form>
                 </div>
             </div>

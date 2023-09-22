@@ -4,46 +4,50 @@
 <base href="/">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>Fast Food Dashboard Template</title>
-    <link rel="shortcut icon" type="image/x-icon" href="admin/assets/img/favicon.png">
-    <link rel="stylesheet" href="admin/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="admin/assets/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="admin/assets/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="admin/assets/css/feathericon.min.css">
-    <link rel="stylesheet" type="text/css" href="admin/assets/css/bootstrap-datetimepicker.min.css">
-    <link rel="stylesheet" href="admin/assets/plugins/morris/morris.css">
-    <link rel="stylesheet" href="admin/assets/css/style.css">
+    <title>Dashboard | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
+    <meta content="Coderthemes" name="author">
+    <link rel="shortcut icon" href="admin1/assets/images/favicon.ico">
+    <link href="admin1/assets/css/vendor/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css">
+    <link href="admin1/assets/css/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="admin1/assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
+    <link href="admin1/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style">
+    <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
+    <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
     @yield('style')
     @vite('resources/css/app.css')
     @livewireStyle
 </head>
 
-<body class="loading"
-      data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>>
-<div class="main-wrapper">
-    @include('admin.layouts.nav-bar')
+<body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
 
-    @include('admin.layouts.side-bar')
-
+<div class="wrapper">
     @include('sweetalert::alert')
-
+    @include('admin.layouts.side-bar')
     <div class="content-page">
         <div class="content">
+            @include('admin.layouts.nav')
             @yield('content')
         </div>
+
     </div>
 </div>
-</body>
-<script src="admin/assets/js/jquery-3.5.1.min.js"></script>
-<script src="admin/assets/js/popper.min.js"></script>
-<script src="admin/assets/js/bootstrap.min.js"></script>
-<script src="admin/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="admin/assets/plugins/raphael/raphael.min.js"></script>
-<script src="admin/assets/plugins/morris/morris.min.js"></script>
-<script src="admin/assets/js/chart.morris.js"></script>
-<script src="admin/assets/js/script.js"></script>
+
+   @include('admin.layouts.end-bar')
 @yield('script')
 @livewireScripts
-
+<div class="rightbar-overlay"></div>
+<script src="/path/or/uri/to/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="admin1/assets/js/vendor.min.js"></script>
+<script src="admin1/assets/js/app.min.js"></script>
+<script src="admin1/assets/js/vendor/apexcharts.min.js"></script>
+<script src="admin1/assets/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="admin1/assets/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
+<script src="admin1/assets/js/pages/demo.dashboard.js"></script>
+<!-- plugin js -->
+<script src="assets/js/vendor/dropzone.min.js"></script>
+<!-- init js -->
+<script src="assets/js/ui/component.fileupload.js"></script>
+</body>
 </html>

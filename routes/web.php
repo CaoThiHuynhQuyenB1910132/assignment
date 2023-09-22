@@ -3,13 +3,15 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\ProductImageController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\MyAccountController;
+use App\Http\Controllers\Client\CheckoutController;
+use App\Http\Controllers\Client\OrderHistory;
 use App\Http\Controllers\Client\ProductDetailController;
 use App\Http\Controllers\Client\ShopController;
 use App\Http\Controllers\SocialiteController;
@@ -48,13 +50,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/edit-product/{id}', [ProductController::class, 'edit'])->name('edit.product');
     Route::put('/update-product/{id}', [ProductController::class, 'update'])->name('update.product');
     Route::get('/delete-product/{id}', [ProductController::class, 'delete'])->name('delete.product');
-
-    Route::get('/product-image', [ProductImageController::class, 'index'])->name('product-image');
-    Route::get('/create-product-image', [ProductImageController::class, 'create'])->name('create.product-image');
-    Route::post('/store-product-image', [ProductImageController::class, 'store'])->name('store.product-image');
-    Route::get('/edit-product-image/{id}', [ProductImageController::class, 'edit'])->name('edit.product-image');
-    Route::put('/update-product-image/{id}', [ProductImageController::class, 'update'])->name('update.product-image');
-    Route::get('/delete-product-image/{id}', [ProductImageController::class, 'delete'])->name('delete.product-image');
+    Route::get('/delete-image/{id}', [ProductController::class, 'deleteProductImage'])->name('delete-image');
 
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
     Route::get('/create-contact', [ContactController::class, 'create'])->name('create.contact');
@@ -62,6 +58,11 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/edit-contact/{id}', [ContactController::class, 'edit'])->name('edit.contact');
     Route::put('/update-contact/{id}', [ContactController::class, 'update'])->name('update.contact');
     Route::get('/delete-contact/{id}', [ContactController::class, 'delete'])->name('delete.contact');
+
+    Route::get('/order', [OrderController::class, 'index'])->name('order');
+    Route::get('/edit-order/{id}', [OrderController::class, 'edit'])->name('edit.order');
+    Route::put('/update-order/{id}', [OrderController::class, 'update'])->name('update.order');
+    Route::get('/delete-order/{id}', [OrderController::class, 'delete'])->name('delete.order');
 
 });
 
@@ -77,3 +78,10 @@ Route::put('cart-update', [CartController::class, 'update'])->name('cart.update'
 Route::get('cart-delete/{id}', [CartController::class, 'delete'])->name('cart.delete')->middleware('auth');
 
 Route::get('account', [MyAccountController::class, 'index'])->name('account')->middleware('auth');
+Route::get('address-delete/{id}', [MyAccountController::class, 'deleteAddress'])->name('address.delete')->middleware('auth');
+
+Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout')->middleware('auth');
+Route::get('thank-you', [CheckoutController::class, 'thankYou'])->name('thank.you')->middleware('auth');
+
+Route::get('order-history', [OrderHistory::class, 'index'])->name('order.history')->middleware('auth');
+Route::get('order-delete/{id}', [OrderHistory::class, 'cancle'])->name('order.delete')->middleware('auth');

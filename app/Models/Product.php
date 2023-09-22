@@ -25,7 +25,7 @@ class Product extends Model
 
     public function orderProducts(): HasMany
     {
-        return $this->hasMany(OrderProduct::class);
+        return $this->hasMany(OrderProduct::class, 'product_id');
     }
 
     public function productImages(): HasMany
@@ -48,14 +48,14 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function cart(): BelongsTo
+    public function carts(): HasMany
     {
-        return $this->belongsTo(Cart::class);
+        return $this->hasMany(Cart::class);
     }
 
     public static function getProductById(string $id): Model|Collection|Builder|array|null
     {
-        return Product::query()->findOrFail($id);
+        return Product::findOrFail($id);
     }
 
 }

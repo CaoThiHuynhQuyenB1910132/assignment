@@ -15,11 +15,12 @@ return new class () extends Migration {
             $table->string('name');
             $table->string('gender')->nullable();
             $table->string('status')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('phone')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->tinyInteger('is_admin')->default(0);
+            $table->string('provider_id');
             $table->rememberToken();
             $table->timestamps();
         });

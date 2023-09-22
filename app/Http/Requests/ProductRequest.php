@@ -17,6 +17,7 @@ class ProductRequest extends FormRequest
             'selling_price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'in:0,1'],
             'category_id' => ['required'],
+            'images.*' => ['nullable', 'image'],
         ];
     }
 }

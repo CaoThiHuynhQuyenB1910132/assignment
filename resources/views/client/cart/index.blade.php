@@ -1,11 +1,20 @@
 @extends('client.layouts.app')
 @section('content')
+    <section class="how-overlay2 bg-img4" style="background-image: url(client/new/images/img/hh.jpg);">
+        <div class="container">
+            <div class="txt-center p-t-160 p-b-165">
+                <h2 class="txt-l-101 cl0 txt-center p-b-14 respon1">
+                    Cart Detail
+                </h2>
+            </div>
+        </div>
+    </section>
 
     <div class="bg0 p-tb-100">
         <div class="container">
             @if( $carts -> count() > 0 )
                 @php $total = 0; @endphp
-            <form class="woocommerce-cart-form">
+            <div class="woocommerce-cart-form">
                 <div class="wrap-table-shopping-cart">
                     <table class="table-shopping-cart">
                         <tr class="table_head bg12">
@@ -99,7 +108,7 @@
                     </div>
                 </div>
 
-            </form>
+            </div>
             @else
                 <tr class="text-center">
                     <td colspan="100%">Not have products</td>
@@ -160,3 +169,4 @@
         });
     </script>
 @endsection
+

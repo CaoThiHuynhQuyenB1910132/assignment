@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\File;
 
 trait ImageTrait
 {
-    public function uploadImage(Request $request, string $fieldName, string $storagePath): string
+    public function uploadImage(Request $request, string $fieldName, string $storagePath): array|string|null
     {
-        $file = $request->file($fieldName);
-        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
-
-        $path = $file->storeAs($storagePath, $filename, 'public');
+        $files = $request->file($fieldName);
+        $path = [];
+        foreach ($files as $file) {
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            $path[] = $file->storeAs($storagePath, $filename, 'public');
+        }
 
         return $path;
     }

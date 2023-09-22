@@ -39,7 +39,8 @@ class UserController extends Controller
             'is_admin' => $user['is_admin'],
         ]);
 
-        return redirect('user')->with('status', 'Add User Successfully!');
+        toast('Add User Successfully!', 'success');
+        return redirect('user');
     }
 
     public function edit(string $id): View
@@ -51,27 +52,18 @@ class UserController extends Controller
 
     public function update(UserRequest $request, string $id): RedirectResponse
     {
+        dd(123);
         $data = $request->validated();
 
         $user = User::getUserById($id);
 
-        if (Hash::check($data['password'], $user->password)) {
-            $user->updated([
-                'name' => $data['name'],
-                'gender' => $data['gender'],
-                'status' => $data['status'],
-                'phone' => $data['phone'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-                'is_admin' => $data['is_admin'],
-            ]);
-        } else {
-            toast()->error('Ôi! Sai Mật Khẩu!');
+        $user->update([
+            'name' => $data['name'],
+            'status' => $data['status'],
+            'is_admin' => $data['is_admin'],
+        ]);
 
-            return redirect()->back();
-        }
-
-        toast()->success('Cập Nhật Mật Khẩu Thành Công!');
+        toast('Updated User','success');
         return redirect('user');
     }
 
@@ -81,6 +73,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect('user')->with('status', 'Xóa Người Dùng Thành Công!');
+        return redirect('user')->with('status', 'Deleted User!');
     }
 }

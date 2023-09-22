@@ -1,73 +1,76 @@
-<div class="sidebar" id="sidebar">
-    <div class="sidebar-inner slimscroll">
-        <div id="sidebar-menu" class="sidebar-menu">
-            <ul>
-                <li class="{{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                    <a href="{{ route('dashboard') }}">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>Trang Quản Lý</span>
-                    </a>
-                </li>
+<div class="leftside-menu">
 
-                <li class="{{ request()->routeIs('category') ? 'active' : '' }}">
-                    <a href="{{ route('category') }}">
-                        <i class="fas fa-key"></i>
-                        <span> Danh Mục </span>
-                    </a>
-                </li>
+    <!-- LOGO -->
+    <a href="{{ route('dashboard') }}" class="logo text-center logo-light">
+                    <span class="logo-lg">
+                        <img src="admin1/assets/images/logo.png" alt="" height="16">
+                    </span>
+        <span class="logo-sm">
+                        <img src="admin1/assets/images/logo_sm.png" alt="" height="16">
+                    </span>
+    </a>
 
-                <li class="{{ request()->routeIs('product') ? 'active' : '' }}">
-                    <a href="{{ route('product') }}">
-                        <i class="fas fa-suitcase"></i>
-                        <span> Sản Phẩm </span>
-                    </a>
-                </li>
+    <!-- LOGO -->
+    <a href="{{ route('dashboard') }}" class="logo text-center logo-dark">
+                    <span class="logo-lg">
+                        <img src="admin1/assets/images/logo-dark.png" alt="" height="16">
+                    </span>
+        <span class="logo-sm">
+                        <img src="admin1/assets/images/logo_sm_dark.png" alt="" height="16">
+                    </span>
+    </a>
 
+    <div class="h-100" id="leftside-menu-container" data-simplebar="">
 
+        <ul class="side-nav">
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="{{ route('dashboard') }}" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                    <i class="uil-store"></i>
+                    <span> Dashboard </span>
+                </a>
 
-                <li class="{{ request()->routeIs('product-image') ? 'active' : '' }}">
-                    <a href="{{ route('product-image') }}">
-                        <i class="fas fa-image"></i>
-                        <span> Hình Ảnh </span>
-                    </a>
-                </li>
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{ route('category') }}"  class="side-nav-link">
+                                <i class="uil-tag-alt"></i>
+                                <span>Category</span>
+                            </a>
+                        </li>
 
-                <li class="{{ request()->routeIs('cart') ? 'active' : '' }}">
-                    <a href="">
-                        <i class="fas fa-sd-card"></i>
-                        <span> Giỏ hàng </span>
-                    </a>
-                </li>
+                        <li>
+                            <a href="{{ route('product') }}"  class="side-nav-link">
+                                <i class="uil-food"></i>
+                                <span>Products</span>
+                            </a>
+                        </li>
 
-                <li class="{{ request()->routeIs('user') ? 'active' : '' }}">
-                    <a href="{{ route('user') }}">
-                        <i class="fas fa-user"></i>
-                        <span> Người Dùng </span>
-                    </a>
-                </li>
+                        <li>
+                            <a href="{{ route('order') }}" class="side-nav-link">
+                                <i class=" uil-shopping-cart-alt"></i>
+                                <span>Orders</span>
+                            </a>
+                        </li>
 
-                <li class="{{ request()->routeIs('contact') ? 'active' : '' }}">
-                    <a href="{{ route('contact') }}">
-                        <i class="fas fa-comments"></i>
-                        <span> Liên Hệ </span>
-                    </a>
-                </li>
+                        <li>
+                            <a href="{{ route('user') }} " class="side-nav-link">
+                                <i class="uil-users-alt"></i>
+                               <span>Users</span>
+                            </a>
+                        </li>
 
-{{--                <li>--}}
-{{--                    <a href="pricing.html">--}}
-{{--                        <i class="far fa-money-bill-alt"></i>--}}
-{{--                        <span>Billing</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                        <li>
+                            <a href="#" class="side-nav-link">
+                                <i class="uil-cog"></i>
+                                <span>Setting</span>
+                            </a>
+                        </li>
 
-{{--                <li>--}}
-{{--                    <a href="settings.html">--}}
-{{--                        <i class="fas fa-cog"></i>--}}
-{{--                        <span>Settings</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                    </ul>
 
-            </ul>
-        </div>
+            </li>
+        </ul>
+
     </div>
+    <!-- Sidebar -left -->
+
 </div>

@@ -12,8 +12,7 @@
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <link rel="shortcut icon" href="client/assets/images/favicon.png" type="">
-    <title> Feane </title>
+    <title> Fast Food </title>
     <link rel="stylesheet" type="text/css" href="client/assets/css/bootstrap.css"/>
     <!--owl slider stylesheet -->
     <link rel="stylesheet" type="text/css"
@@ -30,7 +29,7 @@
     <link href="client/assets/css/style.css" rel="stylesheet"/>
     <!-- responsive style -->
     <link href="client/assets/css/responsive.css" rel="stylesheet"/>
-    <link rel="icon" type="image/png" href="client/new/images/icons/favicon.png" />
+    <link rel="icon" type="image/png" href="client/new/images/img/logo.png" />
 
     <link rel="stylesheet" type="text/css" href="client/new/vendor/bootstrap/css/bootstrap.min.css">
 
@@ -60,19 +59,18 @@
 
     <link rel="stylesheet" type="text/css" href="client/new/css/util.css">
     <link rel="stylesheet" type="text/css" href="client/new/css/main.css">
-    @yield('styles')
+    @stack('styles')
     @livewireStyles
 </head>
 
 <body>
+@include('sweetalert::alert')
 <div class="home">
     @include('client.layouts.nav')
-
-    @include('sweetalert::alert')
     @yield('content')
 </div>
-
 @include('client.layouts.footer')
+
 <script src="client/assets/js/bootstrap.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
 </script>

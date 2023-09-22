@@ -25,15 +25,12 @@ class SocialiteController extends Controller
             $user = User::updateOrCreate([
                 'provider_id' => $socialAccount->getId(),
             ], [
-                'email' => $socialAccount->getEmail(),
+
                 'name' => $socialAccount->getName(),
-                'provider_id'=> $socialAccount->getId(),
-                'status' => 1,
-                'is_admin' => 0,
-                'image' => $socialAccount->getAvatar(),
-                'phone' => fake()->phoneNumber(),
+                'email' => $socialAccount->getEmail(),
                 'password' => Hash::make(Str::random(10)),
                 'email_verified_at' => Carbon::now(),
+                'provider_id'=> $socialAccount->getId(),
             ]);
 
             Auth::login($user);

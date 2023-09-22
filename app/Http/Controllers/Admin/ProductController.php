@@ -6,16 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
+use App\Traits\ImageTrait;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 
 class ProductController extends Controller
 {
+    use ImageTrait;
+
     public int $itemPerPage = 10;
 
     public function index(): View
     {
         $products = Product::query()
+            ->with('productImages')
             ->orderByDesc('created_at')
             ->paginate($this->itemPerPage);
 
@@ -31,18 +37,30 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request): RedirectResponse
     {
-        $product = $request->validated();
+        $validatedData = $request->validated();
 
-        Product::create([
-            'name' => $product['name'],
-            'description' => $product['description'],
-            'status' => $product['status'],
-            'featured' => $product['featured'],
-            'original_price' => $product['original_price'],
-            'selling_price' => $product['selling_price'],
-            'stock' => $product['stock'],
-            'category_id' => $product['category_id'],
+        $product = Product::create([
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'status' => $validatedData['status'],
+            'featured' => $validatedData['featured'],
+            'original_price' => $validatedData['original_price'],
+            'selling_price' => $validatedData['selling_price'],
+            'stock' => $validatedData['stock'],
+            'category_id' => $validatedData['category_id'],
         ]);
+
+        $filePaths = '';
+
+        if ($request->hasFile('images')) {
+            $filePaths = $this->uploadImage($request, 'images', 'images');
+            foreach ($filePaths as $filePath) {
+                ProductImage::create([
+                    'image' => $filePath,
+                    'product_id' => $product->id,
+                ]);
+            }
+        }
 
         toast('Tạo Sản Phẩm Thành Công', 'success');
 
@@ -84,10 +102,32 @@ class ProductController extends Controller
     {
         $product = Product::getProductById($id);
 
+        foreach ($product->productImages as $image) {
+            $imageUrl = 'storage/' . $image->image;
+            $this->deleteImage($imageUrl);
+            $image->delete();
+        }
+
         $product->delete();
 
         toast('Xóa sản phẩm thành công', 'success');
 
         return redirect('product')->with('status', 'Xóa sản phẩm thành công!');
+    }
+
+    public function deleteProductImage(string|int $id): RedirectResponse
+    {
+        $image = ProductImage::find($id);
+
+        if($image) {
+            $imageUrl = 'storage/' . $image->image;
+            $this->deleteImage($imageUrl);
+            $image->delete();
+            toast('Xóa ảnh sản phẩm thành công', 'success');
+            return redirect()->back();
+        }
+
+        toast('Xóa ảnh sản phẩm không thành công', 'danger');
+        return redirect()->back();
     }
 }

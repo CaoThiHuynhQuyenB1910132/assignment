@@ -29,16 +29,11 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request): RedirectResponse
     {
-        $data = $request->validated();
+        $validatedData = $request->validated();
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadImage($request, 'image', 'images');
-        }
-
-        Category::query()->create([
-            'name' => $data['name'],
-            'image' => $data['image'],
-            'featured' => $data['featured'],
+        Category::create([
+            'name' => $validatedData['name'],
+            'featured' => $validatedData['featured'],
         ]);
 
         toast('Create New Category Success', 'success');
@@ -59,19 +54,8 @@ class CategoryController extends Controller
 
         $category = Category::getCategoryById($id);
 
-        if ($request->hasFile('image')) {
-            $image = 'storage/' . $category->image;
-
-            $this->deleteImage($image);
-
-            $data['image'] = $this->uploadImage($request, 'image', 'images');
-        } else {
-            $data['image'] = $category->image;
-        }
-
         $category->update([
             'name' => $data['name'],
-            'image' => $data['image'],
             'featured' => $data['featured'],
         ]);
 
@@ -83,10 +67,6 @@ class CategoryController extends Controller
     public function delete(string $id): RedirectResponse
     {
         $category = Category::getCategoryById($id);
-
-        $image = 'storage/' . $category->image;
-
-        $this->deleteImage($image);
 
         $category->delete();
 

@@ -1,19 +1,11 @@
 @extends('client.layouts.app')
 @section('content')
-    <section class="how-overlay2 bg-img1" style="background-image: url(client/new/images/img/intro.jpg);">
+    <section class="how-overlay2 bg-img1" style="background-image: url(client/new/images/img/detail.jpg);">
         <div class="container">
             <div class="txt-center p-t-160 p-b-165">
-                <h2 class="txt-l-101 cl0 txt-center p-b-14 respon1">
-                    Product Detail
+                <h2 class="txt-l-101 cl0 txt-center p-b-14">
+                    Cart Detail
                 </h2>
-                <span class="txt-m-201 cl0 flex-c-m flex-w">
-                    <a href="index.html" class="txt-m-201 cl0 hov-cl10 trans-04 m-r-6">
-                        Home
-                    </a>
-                    <span>
-                        / Checkout
-                    </span>
-                </span>
             </div>
         </div>
     </section>
@@ -26,6 +18,7 @@
                             <div class="wrap-main-pic-100 bo-all-1 bocl12 pos-relative">
                                 <div class="main-frame">
                                     <div class="wrap-main-pic">
+
                                         <div class="main-pic">
                                             @foreach($product->productImages as $image)
                                                 <img src="{{ ('storage/' . $image->image) }}" alt="">

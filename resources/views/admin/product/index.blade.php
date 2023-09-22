@@ -1,89 +1,96 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="page-wrapper">
-        <div class="content container-fluid">
-            <div class="page-header">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <div class="mt-5">
-                            <h4 class="card-title float-left mt-2">Tất cả sản phẩm</h4>
-                            <a href="{{ route('create.product') }}" class="btn btn-primary float-right view button ">Thêm sản phẩm</a>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
+                                        <li class="breadcrumb-item active">Products</li>
+                                    </ol>
+                                </div>
+                                <h4 class="page-title">Products</h4>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-4">
+                                <a href="{{ route('create.product') }}" class="btn btn-danger mb-2">
+                                    <i class="mdi mdi-plus-circle me-2"></i> Add Products
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card card-table">
-                        <div class="card-body booking_card">
-                            <div class="table-responsive">
-                                <table class="datatable table table-stripped table table-hover table-center mb-0">
 
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Tên Sản Phẩm</th>
-                                        <th>Mô Tả</th>
-                                        <th>Trạng Thái</th>
-                                        <th>Nổi Bật</th>
-                                        <th>Giá Gốc</th>
-                                        <th>Giá Giảm</th>
-                                        <th>Stock</th>
-                                        <th>Danh Mục</th>
-                                        <th class="text-right">Công Cụ</th>
-                                    </tr>
-                                    </thead>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
 
-                                    <tbody>
-                                    @foreach($products as $product)
-                                        <tr>
-                                            <td>{{ $product->id }}</td>
+                                    <div class="table-responsive">
+                                        <table class="datatable table table-stripped table table-hover table-center mb-0">
 
-                                            <td>{{ $product->name }}</td>
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Product Name</th>
+                                                <th>Status</th>
+                                                <th>Featured</th>
+                                                <th>Original Price</th>
+                                                <th>Selling Price</th>
+                                                <th>Stock</th>
+                                                <th class="text-right">Action</th>
+                                            </tr>
+                                            </thead>
 
-                                            <td>{{ $product->description }}</td>
+                                            <tbody>
+                                            @foreach($products as $key => $product)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td class="sorting_1">
+                                                        @if($product->productImages->count())
+                                                            <img src="{{ asset('storage/' . $product->productImages[0]->image) }}"
+                                                                 alt="{{ $product->name }}" title="{{ $product->name }}"
+                                                                 class="rounded me-3"
+                                                                 height="48">
+                                                        @endif
+                                                        <p class="m-0 d-inline-block align-middle font-16">
+                                                            <a href="{{ route('edit.product', ['id' => $product->id]) }}" class="text-body">{{ $product->name }}</a>
+                                                        </p>
+                                                    </td>
 
-                                            @if($product->status === 1)
-                                                <td><span class="badge badge-success">Hiển thị</span></td>
-                                            @else
-                                                <td><span span class="badge badge-danger">Không hiển thị</span></td>
-                                            @endif
+                                                    <td>
+                                                        <span class="badge badge-{{ $product->status == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $product->status === 1 ? 'Nổi Bật' : 'Không Nổi Bật' }}</span>
+                                                    </td>
 
-                                            @if($product->featured === 1)
-                                                <td><span class="badge badge-success">Nổi bật</span></td>
-                                            @else
-                                                <td><span span class="badge badge-danger">Không nổi bật</span></td>
-                                            @endif
+                                                    <td>
+                                                        <span class="badge badge-{{ $product->featured == 1 ? 'success-lighten' : 'primary-lighten' }}">{{ $product->featured === 1 ? 'Nổi bât' : 'Bình thường' }}</span>
+                                                    </td>
 
-                                            <td>{{ $product->original_price }}</td>
-                                            <td>{{ $product->selling_price }}</td>
+                                                    <td>{{ $product->original_price }}</td>
+                                                    <td>{{ $product->selling_price }}</td>
 
-                                            @if($product->stock === 1)
-                                                <td><span class="badge badge-success">in-stock</span></td>
-                                            @else
-                                                <td><span span class="badge badge-danger">out-stock</span></td>
-                                            @endif
+                                                    <td>
+                                                        <span class="badge badge-{{ $product->stock == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $product->stock === 1 ? 'Còn hàng' : 'Hết hàng' }}</span>
+                                                    </td>
 
-                                            <td>{{ $product->category->name }}</td>
-                                            <td class="text-right">
-                                                <div class="dropdown dropdown-action">
-                                                    <a href="" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fas fa-ellipsis-v ellipse_color"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="{{ route('edit.product', ['id' => $product->id]) }}">
-                                                            <i class="fas fa-pencil-alt m-r-5"></i> Edit</a>
-                                                        <a class="dropdown-item" href="{{ route('delete.product', ['id' => $product->id]) }}" onclick="return confirm('Are you sure?')">
-                                                            <i class="fas fa-trash-alt m-r-5"></i> Delete</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    @endforeach
-                                </table>
-
-                                {{--                                {{ $services->links() }}--}}
+                                                    <td class="table-action">
+                                                        <a href="{{ route('edit.product', ['id' => $product->id]) }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                        <a href="{{ route('delete.product', ['id' => $product->id]) }}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            @endforeach
+                                        </table>
+                                        {{ $products->links() }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

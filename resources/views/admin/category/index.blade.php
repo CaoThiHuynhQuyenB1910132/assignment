@@ -1,68 +1,74 @@
 @extends('admin.layouts.app')
 
 @section('content')
-    <div class="page-wrapper">
-        <div class="content container-fluid">
-            <div class="page-header">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <div class="mt-5">
-                            <h4 class="card-title float-left mt-2">Danh Mục Sản Phẩm</h4>
-                            <a href="{{ route('create.category') }}" class="btn btn-primary float-right view button ">Thêm Danh Mục</a>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
+                                        <li class="breadcrumb-item active">Categories</li>
+                                    </ol>
+                                </div>
+                                <h4 class="page-title">Categories</h4>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-4">
+                                <a href="{{ route('create.category') }}" class="btn btn-danger mb-2">
+                                    <i class="mdi mdi-plus-circle me-2"></i> Add Categories
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="datatable table table-stripped table table-hover table-center mb-0">
+
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Category Name</th>
+                                                <th>Featured</th>
+                                                <th class="text-right">Action</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            @foreach($categories as $key => $category)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $category->name }}</td>
+
+                                                    <td>
+                                                        <span class="badge badge-{{ $category->featured == 1 ? 'danger-lighten' : 'primary-lighten' }}">{{ $category->featured === 1 ? 'Nổi bât' : 'Bình thường' }}</span>
+                                                    </td>
+
+                                                    <td class="table-action">
+                                                        <a href="{{ route('edit.category', ['id' => $category->id]) }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                        <a href="{{ route('delete.category', ['id' => $category->id]) }}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            @endforeach
+                                        </table>
+                                        {{ $categories->links() }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card card-table">
-                        <div class="card-body booking_card">
-                            <div class="table-responsive">
-                                <table class="datatable table table-stripped table table-hover table-center mb-0">
-
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Tên Danh Mục</th>
-                                        <th>Hình Ảnh</th>
-                                        <th>Nổi Bật</th>
-                                        <th class="text-right">Công Cụ</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-                                    @foreach($categories as $category)
-                                        <tr>
-                                            <td>{{ $category->id }}</td>
-                                            <td>{{ $category->name }}</td>
-                                            <td><img class="img-fluid avatar-sm" src="{{ 'storage/' . $category->image }}"></td>
-
-                                            @if($category->featured === 1)
-                                                <td><span class="badge badge-success">Nổi bật</span></td>
-                                            @else
-                                                <td><span class="badge badge-danger">Không nổi bật</span></td>
-                                            @endif
-
-                                            <td class="text-right">
-                                                <div class="dropdown dropdown-action">
-                                                    <a href="" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fas fa-ellipsis-v ellipse_color"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="{{route('edit.category', ['id' => $category->id])}}">
-                                                            <i class="fas fa-pencil-alt m-r-5"></i> Edit</a>
-                                                        <a class="dropdown-item" href="{{route('delete.category', ['id' => $category->id])}}" onclick="return confirm('Are you sure?')">
-                                                            <i class="fas fa-trash-alt m-r-5"></i> Delete</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    @endforeach
-                                </table>
-                                {{ $categories->links() }}
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

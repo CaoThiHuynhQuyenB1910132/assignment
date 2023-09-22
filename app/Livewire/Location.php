@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Address;
 use App\Models\District;
+use App\Models\Order;
 use App\Models\Province;
 use App\Models\Ward;
 use Illuminate\Support\Facades\Auth;
@@ -57,10 +58,13 @@ class Location extends Component
             $validatedData['district_id'] = $this->districtId;
             $validatedData['province_id'] = $this->provinceId;
             $validatedData['ward_id'] = $this->wardId;
+
             Address::create($validatedData);
             $this->reset();
+
+            toast('Thanh cong', 'success');
         } else {
-            session()->flash('warning', 'Mỗi người không thể thêm quá 5 địa chỉ.');
+            toast('Mỗi người không thể thêm quá 5 địa chỉ.', 'warning');
             $this->reset();
         }
     }
