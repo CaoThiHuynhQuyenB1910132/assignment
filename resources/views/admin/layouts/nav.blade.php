@@ -194,7 +194,7 @@
                                         <img src="admin1/assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
                                     </span>
                 <span>
-                                        <span class="account-user-name">{{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
+                                        <span class="account-user-name">{{ \Illuminate\Support\Facades\Auth::user()->n }}</span>
                                         <span class="account-position">Admin</span>
                                     </span>
             </a>
