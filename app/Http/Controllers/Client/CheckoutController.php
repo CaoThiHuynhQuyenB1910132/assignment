@@ -16,5 +16,4 @@ class CheckoutController extends Controller
     {
         return view('client.order.thank-you');
     }
-
 }

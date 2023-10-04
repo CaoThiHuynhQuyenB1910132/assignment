@@ -50,4 +50,16 @@ class OrderController extends Controller
         return redirect('order');
     }
 
+    public function searchOrder(Request $request): View
+    {
+        $searchOrder = $request->input('search');
+
+        $orders = Order::where('tracking_number', 'like', '%' . $searchOrder . '%')->get();
+
+        return view('admin.order.index',
+            [
+                'orders' => $orders,
+            ]);
+    }
+
 }

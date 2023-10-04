@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\CartController;
+use App\Http\Controllers\Client\FeedbackController as FeedbackController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\MyAccountController;
 use App\Http\Controllers\Client\CheckoutController;
@@ -63,12 +64,14 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/edit-order/{id}', [OrderController::class, 'edit'])->name('edit.order');
     Route::put('/update-order/{id}', [OrderController::class, 'update'])->name('update.order');
     Route::get('/delete-order/{id}', [OrderController::class, 'delete'])->name('delete.order');
+    Route::get('/search-order', [OrderController::class, 'searchOrder'])->name('search.order');
 
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('/');
 
 Route::get('shop', [ShopController::class, 'index'])->name('shop');
+Route::get('products-search', [ShopController::class, 'search'])->name('search');
 
 Route::get('product-detail/{id}', [ProductDetailController::class, 'index'])->name('product.detail');
 
@@ -84,4 +87,7 @@ Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout')->
 Route::get('thank-you', [CheckoutController::class, 'thankYou'])->name('thank.you')->middleware('auth');
 
 Route::get('order-history', [OrderHistory::class, 'index'])->name('order.history')->middleware('auth');
-Route::get('order-delete/{id}', [OrderHistory::class, 'cancle'])->name('order.delete')->middleware('auth');
+Route::get('order-detail-history/{id}', [OrderHistory::class, 'detail'])->name('order.detail.history')->middleware('auth');
+Route::get('order-cancel/{id}', [OrderHistory::class, 'cancel'])->name('order.cancel')->middleware('auth');
+
+Route::get('feedback', [FeedbackController::class, 'index'])->name('feedback')->middleware('auth');

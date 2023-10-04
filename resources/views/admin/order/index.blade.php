@@ -24,32 +24,29 @@
                         <div class="card-body">
                             <div class="row mb-2">
                                 <div class="col-xl-8">
-                                    <form class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between">
-                                        <div class="col-auto">
-                                            <label for="inputPassword2" class="visually-hidden">Search</label>
-                                            <input type="search" class="form-control" id="inputPassword2" placeholder="Search...">
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="d-flex align-items-center">
-                                                <label for="status-select" class="me-2">Status</label>
-                                                <select class="form-select" id="status-select">
-                                                    <option selected="">Choose...</option>
-                                                    <option value="1">Paid</option>
-                                                    <option value="2">Awaiting Authorization</option>
-                                                    <option value="3">Payment failed</option>
-                                                    <option value="4">Cash On Delivery</option>
-                                                    <option value="5">Fulfilled</option>
-                                                    <option value="6">Unfulfilled</option>
-                                                </select>
+                                    <form method="GET" action="{{ route('search.order') }}" class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between">
+{{--
+{{--                                            <button type="submit" class="visually-hidden">Search</button>--}}
+{{--                                            <input type="search" value="{{ isset( $searchOrder ) ? $searchOrder : '' }}" class="form-control" id="search" name="search" placeholder="Search...">--}}
+                                            <div class="col-auto">
+                                                <label for="inputPassword2" class="visually-hidden">Search</label>
+                                                <input type="search" class="form-control" id="inputPassword2" placeholder="Search...">
                                             </div>
-                                        </div>
+                                            <div class="col-auto">
+                                                <div class="d-flex align-items-center">
+                                                    <label for="status-select" class="me-2">Status</label>
+                                                    <select class="form-select" id="status-select">
+                                                        <option selected="">Choose...</option>
+                                                        <option value="1">pending</option>
+                                                        <option value="2">accepted</option>
+                                                        <option value="3">in-delivery</option>
+                                                        <option value="4">success</option>
+                                                        <option value="5">cancel</option>
+                                                        <option value="6">refund</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                     </form>
-                                </div>
-                                <div class="col-xl-4">
-                                    <div class="text-xl-end mt-xl-0 mt-2">
-                                        <button type="button" class="btn btn-danger mb-2 me-2"><i class="mdi mdi-basket me-1"></i> Add New Order</button>
-                                        <button type="button" class="btn btn-light mb-2">Export</button>
-                                    </div>
                                 </div>
                             </div>
 
@@ -67,10 +64,10 @@
                                     </thead>
 
                                     <tbody>
-                                    @foreach($orders as $order)
+                                    @foreach($orders as $key => $order)
                                     <tr>
 
-                                        <td>{{ $order->id }}</td>
+                                        <td>{{ $key + 1 }}</td>
 
                                         <td>
                                             <a href="{{ route('edit.order', ['id' => $order->id]) }}" class="text-body fw-bold">
@@ -101,7 +98,6 @@
                                         <td>{{$order->staff}}</td>
 
                                         <td class="table-action">
-{{--                                            <a href="{{ route('detail.order', ['id' => $order->id]) }}" class="action-icon"> <i class="mdi mdi-eye"></i></a>--}}
                                             <a href="{{ route('edit.order', ['id' => $order->id]) }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
                                             <a href="{{ route('delete.order', ['id' => $order->id]) }}" class="action-icon" onclick="return confirm('Are you sure?')"> <i class="mdi mdi-delete"></i></a>
                                         </td>
@@ -111,6 +107,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            {{ $orders->links() }}
                         </div>
                     </div>
                 </div>

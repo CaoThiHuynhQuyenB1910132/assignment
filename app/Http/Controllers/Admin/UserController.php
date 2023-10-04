@@ -52,7 +52,6 @@ class UserController extends Controller
 
     public function update(UserRequest $request, string $id): RedirectResponse
     {
-        dd(123);
         $data = $request->validated();
 
         $user = User::getUserById($id);
@@ -72,7 +71,7 @@ class UserController extends Controller
         $user = User::getUserById($id);
 
         $user->delete();
-
-        return redirect('user')->with('status', 'Deleted User!');
+        toast('Deleted User','success');
+        return redirect('user');
     }
 }

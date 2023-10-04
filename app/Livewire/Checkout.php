@@ -2,11 +2,13 @@
 
 namespace App\Livewire;
 
+use App\Mail\OrderMail;
 use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Livewire\Attributes\Rule;
@@ -57,7 +59,7 @@ class Checkout extends Component
         $order = Order::create([
             'notes' => $data['notes'],
             'user_id' => Auth::user()->id,
-            'tracking_number' => Str::upper('ORG' . Str::random(15)),
+            'tracking_number' => Str::upper('ORG' . Str::random(5)),
             'status' => 'pending',
             'shipping_address' => $shippingAddresses,
             'total' => $this->total,
@@ -72,9 +74,14 @@ class Checkout extends Component
             ]);
         }
 
+        Mail::to($order->user->email)->send(new OrderMail($order));
         Cart::where('user_id', Auth::user()->id)->delete();
         toast('Added product!', 'success');
         return redirect()->route('thank.you');
+
+    }
+
+    public function newPhoneNumber(){
 
     }
     public function render(): View

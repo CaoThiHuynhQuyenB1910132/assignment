@@ -35,20 +35,17 @@
                                 <tr class="table_row">
                                     <td class="column-1">
                                         <div class="flex-w flex-m">
-                                            <div class="wrap-pic-w size-w-50 bo-all-1 bocl12 m-r-30">
-                                                @foreach($product->product->productImages as $image)
-                                                    <img src="{{ ('storage/' . $image->image) }}" alt="">
-                                                @endforeach
+                                            <div class="wrap-pic-w size-w-40 bo-all-1 bocl12 m-r-30">
+                                                <img src="{{ $product->product->productImages->count() ? asset('storage/' . $product->product->productImages[0]->image) : '' }}">
                                             </div>
                                             <span>
-                                        {{$product->product->name}}
+                                            {{$product->product->name}}
                                     </span>
                                         </div>
                                     </td>
                                     <td class="column-2">
                                          <span class="block1-content-more txt-m-104 cl9 p-t-21 trans-04">
-                                                    {{ number_format($product->product->selling_price, 0, '.',
-                                                            '.') }} VNĐ
+                                                    {{ CurrencyHelper::format($product->product->selling_price) }}
                                          </span>
                                     </td>
                                     <td class="column-3">
@@ -67,8 +64,7 @@
                                     <td class="column-4">
                                         <div class="flex-w flex-sb-m">
                                             <span>
-                                                {{ number_format($product->product->selling_price * $product->quantity, 0, '.',
-                                            '.') }} VNĐ
+                                                {{ CurrencyHelper::format($product->product->selling_price * $product->quantity) }}
                                             </span>
                                         </div>
                                     </td>

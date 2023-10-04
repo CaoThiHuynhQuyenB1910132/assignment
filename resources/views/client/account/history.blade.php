@@ -4,7 +4,7 @@
         <div class="container">
             <div class="txt-center p-t-160 p-b-165">
                 <h2 class="txt-l-101 cl0 txt-center p-b-14 respon1">
-                    History
+                    Order History
                 </h2>
             </div>
         </div>
@@ -16,17 +16,18 @@
                 <div class="wrap-table-shopping-cart">
                     <table class="table-shopping-cart">
                         <tr class="table_head bg12">
-                            <th class="column-2">#ID</th>
-                            <th class="column-2">Shipping Address</th>
-                            <th class="column-3">Date Order</th>
-                            <th class="column-4">Status</th>
+                            <th style="width: 20%">ID</th>
+                            <th style="width: 40%">Shipping Address</th>
+                            <th style="width: 30%">Date Order</th>
+                            <th style="width: 10%">Status</th>
+                            <th >Action</th>
                         </tr>
                         @foreach($orders as $order)
                         <tr class="table_row">
                             <td class="column-2">
 
                                     <span>
-                                        {{ $order->id }}
+                                        #{{ $order->tracking_number }}
                                     </span>
 
                             </td>
@@ -44,10 +45,29 @@
                                 <small>{{ $order->created_at->format('g:i A') }}</small>
                             </td>
 
-                            <td class="column-4">
-                                <span class="badge badge-success">
-                                        {{ $order->status }}
-                                </span>
+                            @if( $order->status === 'pending')
+                                <td><span class="badge badge-info">pending</span></td>
+                            @elseif($order->status === 'accepted')
+                                <td><span class="badge badge-success">accepted</span></td>
+                            @elseif($order->status === 'in-delivery')
+                                <td><span class="badge badge-light">in delivery</span></td>
+                            @elseif($order->status === 'success')
+                                <td><span class="badge badge-success">success</span></td>
+                            @elseif($order->status === 'cancel')
+                                <td><span class="badge badge-danger">cancel</span></td>
+                            @elseif($order->status === 'refund')
+                                <td><span class="badge badge-warning">refund</span></td>
+                            @endif
+
+                            <td>
+                                <a href="{{ route('order.detail.history', ['id' => $order->id]) }}" class="fs-15 hov-cl10 pointer text-warning">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                @if($order->status == 'pending')
+                                <a href="{{ route('order.cancel', ['id' => $order->id]) }}" class="fs-15 hov-cl10 pointer ml-3 text-danger">
+                                    <i class="lnr lnr-cross" href=""></i>
+                                </a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
@@ -59,13 +79,15 @@
             <div class="flex-t p-tb-8 m-r-30">
                 <img class="m-t-6 m-r-10" src="client/new/images/icons/icon-list.png" alt="IMG">
                 <span class="size-w-53 txt-s-101 cl6">
-                                                No order has been made yet.
-                                            </span>
+                    No order has been made yet.
+                </span>
             </div>
-            <a href="{{ route('shop') }}"
-               class="flex-c-m txt-s-105 cl0 bg10 size-a-42 hov-btn2 trans-04 p-rl-10 m-tb-8">
-                go shop
-            </a>
+                <a href="{{ route('shop') }}"
+                   class="flex-c-m txt-s-103 cl6 size-a-2 how-btn1 bo-all-1 bocl11 hov-btn1 trans-04">
+                    Shop now
+                    <span class="lnr lnr-chevron-right m-l-7"></span>
+                    <span class="lnr lnr-chevron-right"></span>
+                </a>
         @endif
         </div>
     </div>

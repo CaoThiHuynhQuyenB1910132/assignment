@@ -1,17 +1,6 @@
-@extends('client.layouts.app')
+    @extends('client.layouts.app')
 
 @section('content')
-
-    <div class="banner banner-image-fit-screen">
-        <div class="rev_slider slider-home-1" id="slider_1">
-            <ul>
-                <li class="hero_area">
-                    <img class="bg-box" src="client/new/images/img/hero-bg.jpg" alt="demo" data-bgposition="center center"
-                         data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10">
-                </li>
-            </ul>
-        </div>
-    </div>
     <section class="sec-slider">
         <div class="rev_slider_wrapper fullwidthbanner-container">
             <div id="rev_slider_3" class="rev_slide fullwidthabanner" data-version="5.4.5" style="display:none">

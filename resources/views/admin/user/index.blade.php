@@ -53,11 +53,11 @@
                                                     <td>{{ $user->name }}</td>
 
                                                     <td>
-                                                        <span class="badge badge-{{ $user->gender == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $user->gender === 1 ? 'Woman' : 'Man' }}</span>
+                                                        <span class="badge badge-{{ $user->gender == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $user->gender == 1 ? 'Woman' : 'Man' }}</span>
                                                     </td>
 
                                                     <td>
-                                                        <span class="badge badge-{{ $user->status == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $user->status === 1 ? 'Active' : 'Block' }}</span>
+                                                        <span class="badge badge-{{ $user->status == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $user->status == 1 ? 'Active' : 'Block' }}</span>
                                                     </td>
 
                                                     <td>{{ $user->phone }}</td>

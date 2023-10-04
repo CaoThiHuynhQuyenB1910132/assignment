@@ -18,13 +18,33 @@ class OrderHistory extends Controller
         return view('client.account.history', compact('orders'));
     }
 
-    public function cancle(string $id): RedirectResponse
+    public function detail(string $id): View
     {
         $order = Order::getOrderById($id);
 
-        $order->delete();
+        if (Auth::id() != $order->user_id) {
+            abort(403);
+        }
 
-        toast('Cancled Order!', 'success');
+        $orderProducts = OrderProduct::where('order_id', $order->id)->get();
+
+        return view('client.account.order-detail-history', compact('order', 'orderProducts'));
+    }
+
+
+    public function cancel(string $id): RedirectResponse
+    {
+        $order = Order::getOrderById($id);
+
+        if ($order->status != 'pending'){
+            toast('you can not cancel!!! your order has been confirmed', 'warning');
+            return redirect()->back();
+        }
+        $order->status = 'cancel';
+
+        $order->save();
+
+        toast('Canceled Order!', 'success');
 
         return redirect()->back();
     }

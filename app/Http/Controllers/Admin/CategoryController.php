@@ -68,10 +68,16 @@ class CategoryController extends Controller
     {
         $category = Category::getCategoryById($id);
 
-        $category->delete();
+        if( $category->products->count() > 0)
+        {
+            toast('You can not delete category !!! Check product', 'warning');
+            return redirect('category');
+        } else {
+            $category->delete();
 
-        toast('Đã xóa danh mục', 'success');
+            toast('Đã xóa danh mục', 'success');
 
-        return redirect('category')->with('status', 'Xóa danh mục thành công!');
+            return redirect('category')->with('status', 'Xóa danh mục thành công!');
+        }
     }
 }

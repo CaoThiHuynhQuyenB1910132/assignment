@@ -93,6 +93,18 @@ class ProductController extends Controller
             'category_id' => $data['category_id'],
         ]);
 
+        $filePaths = '';
+
+        if ($request->hasFile('images')) {
+            $filePaths = $this->uploadImage($request, 'images', 'images');
+            foreach ($filePaths as $filePath) {
+                ProductImage::create([
+                    'image' => $filePath,
+                    'product_id' => $product->id,
+                ]);
+            }
+        }
+
         toast('Cập nhật sản phẩm thành công', 'success');
 
         return redirect('product');
@@ -102,17 +114,24 @@ class ProductController extends Controller
     {
         $product = Product::getProductById($id);
 
-        foreach ($product->productImages as $image) {
-            $imageUrl = 'storage/' . $image->image;
-            $this->deleteImage($imageUrl);
-            $image->delete();
+        if ($product->carts->count() > 0)
+        {
+            toast('Tồn tại sản phẩm trong giỏ hàng của người dùng, Bạn không thể xóa', 'warning');
+            return redirect('product');
+        } else {
+
+            foreach ($product->productImages as $image) {
+                $imageUrl = 'storage/' . $image->image;
+                $this->deleteImage($imageUrl);
+                $image->delete();
+            }
+
+            $product->delete();
+
+            toast('Xóa sản phẩm thành công', 'success');
+
+            return redirect('product')->with('status', 'Xóa sản phẩm thành công!');
         }
-
-        $product->delete();
-
-        toast('Xóa sản phẩm thành công', 'success');
-
-        return redirect('product')->with('status', 'Xóa sản phẩm thành công!');
     }
 
     public function deleteProductImage(string|int $id): RedirectResponse

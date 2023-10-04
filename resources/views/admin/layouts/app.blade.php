@@ -15,6 +15,7 @@
     <link href="admin1/assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style">
     <script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     @yield('style')
     @vite('resources/css/app.css')
     @livewireStyle
@@ -30,11 +31,9 @@
             @include('admin.layouts.nav')
             @yield('content')
         </div>
-
     </div>
 </div>
 
-   @include('admin.layouts.end-bar')
 @yield('script')
 @livewireScripts
 <div class="rightbar-overlay"></div>

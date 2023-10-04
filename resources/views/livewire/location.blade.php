@@ -182,7 +182,7 @@
                                                                     </span>
                                                                 <span>
                                                                     <div class="fs-15 hov-cl10 pointer">
-                                                                        <a class="lnr lnr-cross" href="{{ route('address.delete', ['id' => $address->id]) }} "></a>
+                                                                        <a class="lnr lnr-cross" href="{{ route('address.delete', ['id' => $address->id]) }}" onclick="return confirm('Are you sure?')"> </a>
                                                                     </div>
                                                                 </span>
                                                             </li>

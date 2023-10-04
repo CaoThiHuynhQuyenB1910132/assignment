@@ -62,7 +62,7 @@ class Location extends Component
             Address::create($validatedData);
             $this->reset();
 
-            toast('Thanh cong', 'success');
+            toast('Add Address Successfully', 'success');
         } else {
             toast('Mỗi người không thể thêm quá 5 địa chỉ.', 'warning');
             $this->reset();

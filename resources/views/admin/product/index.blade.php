@@ -66,23 +66,23 @@
                                                     </td>
 
                                                     <td>
-                                                        <span class="badge badge-{{ $product->status == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $product->status === 1 ? 'Nổi Bật' : 'Không Nổi Bật' }}</span>
+                                                        <span class="badge badge-{{ $product->status == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $product->status == 1 ? 'Hien Thi' : 'An' }}</span>
                                                     </td>
 
                                                     <td>
-                                                        <span class="badge badge-{{ $product->featured == 1 ? 'success-lighten' : 'primary-lighten' }}">{{ $product->featured === 1 ? 'Nổi bât' : 'Bình thường' }}</span>
+                                                        <span class="badge badge-{{ $product->featured == 1 ? 'success-lighten' : 'primary-lighten' }}">{{ $product->featured == 1 ? 'Nổi bât' : 'Bình thường' }}</span>
                                                     </td>
 
                                                     <td>{{ $product->original_price }}</td>
                                                     <td>{{ $product->selling_price }}</td>
 
                                                     <td>
-                                                        <span class="badge badge-{{ $product->stock == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $product->stock === 1 ? 'Còn hàng' : 'Hết hàng' }}</span>
+                                                        <span class="badge badge-{{ $product->stock == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $product->stock == 1 ? 'Còn hàng' : 'Hết hàng' }}</span>
                                                     </td>
 
                                                     <td class="table-action">
                                                         <a href="{{ route('edit.product', ['id' => $product->id]) }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                                        <a href="{{ route('delete.product', ['id' => $product->id]) }}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                        <a href="{{ route('delete.product', ['id' => $product->id]) }}" class="action-icon" onclick="return confirm('Are you sure?')"> <i class="mdi mdi-delete"></i></a>
                                                     </td>
                                                 </tr>
                                             </tbody>

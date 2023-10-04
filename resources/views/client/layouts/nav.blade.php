@@ -21,20 +21,14 @@
                                 <ul class="sub-menu">
                                     <li><a href="{{ route('checkout') }}">CheckOut</a></li>
                                     <li><a href="{{ route('account') }}">My Account</a></li>
-                                    <li><a href="account-lost-pass.html">My Account Lost Pass</a></li>
-                                    <li><a href="account-register.html">My Account Register</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="{{ route('shop') }}">Shop</a>
+                                <a>Shop</a>
                                 <ul class="sub-menu">
-                                    <li><a href="shop-sidebar-grid.html">Shop Sidebar Grid</a></li>
-                                    <li><a href="shop-sidebar-list.html">Shop Sidebar List</a></li>
-                                    <li><a href="shop-product-grid.html">Shop Product Grid</a></li>
-                                    <li><a href="shop-product-list.html">Shop Product List</a></li>
-                                    <li><a href="product-single.html">Product Single</a></li>
-                                    <li><a href="shop-cart.html">Shop Cart</a></li>
+                                    <li><a href="{{ route('shop') }}">Shop Sidebar Grid</a></li>
+                                    <li><a href="{{ route('cart.detail') }}">Shop Cart</a></li>
                                 </ul>
                             </li>
 
@@ -79,12 +73,15 @@
                             </div>
                         </div>
                         <div class="wrap-cart-header h-full flex-m m-l-10 menu-click">
-                            <a href="{{ route('cart.detail') }}" class="icon-header-item flex-c-m trans-04 icon-header-noti"
-                               data-notify="@if(Auth::check())
+                            <div class="h-full flex-m">
+                                <div class="icon-header-item flex-c-m trans-04 icon-header-noti"
+                                     data-notify="
+                                            @if(Auth::check())
                                                 {{!is_null(\App\Models\Cart::where('user_id', Auth::user()->id)->get()) ? count(\App\Models\Cart::where('user_id', Auth::user()->id)->get()) : 0 }}
                                             @endif">
-                                <img src="client/new/images/icons/icon-cart-3.png" alt="CART">
-                            </a>
+                                    <img src="client/new/images/icons/icon-cart-3.png" alt="CART">
+                                </div>
+                            </div>
                             <div class="cart-header menu-click-child trans-04">
                                 <div class="bo-b-1 bocl15">
                                     <div class="size-h-2 js-pscroll m-r--15 p-r-15">
@@ -258,7 +255,7 @@
                                 48$
                             </span>
                     </div>
-                    <a href="{{ route('checkout') }} } class="flex-c-m size-a-8 bg10 txt-s-105 cl13 hov-btn2 trans-04">
+                    <a href="{{ route('checkout') }} }" class="flex-c-m size-a-8 bg10 txt-s-105 cl13 hov-btn2 trans-04">
                         check out
                     </a>
                 </div>

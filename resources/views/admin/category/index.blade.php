@@ -18,6 +18,7 @@
                                 <h4 class="page-title">Categories</h4>
                             </div>
                         </div>
+
                         <div class="row mb-2">
                             <div class="col-sm-4">
                                 <a href="{{ route('create.category') }}" class="btn btn-danger mb-2">
@@ -55,7 +56,7 @@
 
                                                     <td class="table-action">
                                                         <a href="{{ route('edit.category', ['id' => $category->id]) }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                                        <a href="{{ route('delete.category', ['id' => $category->id]) }}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                        <a href="{{ route('delete.category', ['id' => $category->id]) }}" class="action-icon" onclick="return confirm('Are you sure?')"> <i class="mdi mdi-delete"></i></a>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -67,8 +68,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
                 </div>
             </div>
         </div>

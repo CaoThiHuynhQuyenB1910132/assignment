@@ -13,9 +13,10 @@ return new class () extends Migration {
         Schema::create('feed_backs', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
-            $table->string('content');
-            $table->string('image');
-            $table->date('time');
+            $table->string('product_id');
+            $table->text('review');
+            $table->integer('rating', range(1,5));
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }
