@@ -26,4 +26,9 @@ class Category extends Model
     {
         return Category::query()->findOrFail($id);
     }
+
+    public static function getAllCategory(): Collection
+    {
+        return self::all();
+    }
 }

@@ -30,7 +30,7 @@ class SocialiteController extends Controller
                 'email' => $socialAccount->getEmail(),
                 'password' => Hash::make(Str::random(10)),
                 'email_verified_at' => Carbon::now(),
-                'provider_id'=> $socialAccount->getId(),
+                'provider_id' => $socialAccount->getId(),
             ]);
 
             Auth::login($user);

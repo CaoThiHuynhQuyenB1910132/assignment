@@ -23,6 +23,10 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
+    protected $routeMiddleware = [
+        'shop-hours' => \App\Http\Middleware\ShopHoursMiddleware::class,
+    ];
+
     /**
      * The application's route middleware groups.
      *

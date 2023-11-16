@@ -1,18 +1,16 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\CartController;
-use App\Http\Controllers\Client\FeedbackController as FeedbackController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\MyAccountController;
 use App\Http\Controllers\Client\CheckoutController;
-use App\Http\Controllers\Client\OrderHistory;
+use App\Http\Controllers\Client\OrderHistoryController;
 use App\Http\Controllers\Client\ProductDetailController;
 use App\Http\Controllers\Client\ShopController;
 use App\Http\Controllers\SocialiteController;
@@ -28,6 +26,7 @@ Route::get('auth/{provider}/callback', [SocialiteController::class, 'callback'])
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('revenue-month', [DashboardController::class, 'revenue'])->name('revenue');
 
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/create-user', [UserController::class, 'create'])->name('create.user');
@@ -36,7 +35,9 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::put('/update-user/{id}', [UserController::class, 'update'])->name('update.user');
     Route::get('/delete-user/{id}', [UserController::class, 'delete'])->name('delete.user');
 
-    Route::get('profile', [ProfileController::class,'index'])->name('profile');
+    Route::get('/profile/{id}', [ProfileController::class,'index'])->name('profile');
+    Route::put('/update-profile/{id}', [ProfileController::class,'updateProfile'])->name('update.profile');
+    Route::put('/update-password/{id}', [ProfileController::class,'updatePassword'])->name('update.password');
 
     Route::get('/category', [CategoryController::class, 'index'])->name('category');
     Route::get('/create-category', [CategoryController::class, 'create'])->name('create.category');
@@ -53,41 +54,39 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/delete-product/{id}', [ProductController::class, 'delete'])->name('delete.product');
     Route::get('/delete-image/{id}', [ProductController::class, 'deleteProductImage'])->name('delete-image');
 
-    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-    Route::get('/create-contact', [ContactController::class, 'create'])->name('create.contact');
-    Route::post('/store-contact', [ContactController::class, 'store'])->name('store.contact');
-    Route::get('/edit-contact/{id}', [ContactController::class, 'edit'])->name('edit.contact');
-    Route::put('/update-contact/{id}', [ContactController::class, 'update'])->name('update.contact');
-    Route::get('/delete-contact/{id}', [ContactController::class, 'delete'])->name('delete.contact');
-
     Route::get('/order', [OrderController::class, 'index'])->name('order');
     Route::get('/edit-order/{id}', [OrderController::class, 'edit'])->name('edit.order');
     Route::put('/update-order/{id}', [OrderController::class, 'update'])->name('update.order');
-    Route::get('/delete-order/{id}', [OrderController::class, 'delete'])->name('delete.order');
-    Route::get('/search-order', [OrderController::class, 'searchOrder'])->name('search.order');
 
 });
 
-Route::get('/', [HomeController::class, 'index'])->name('/');
+Route::middleware(['shop-hours'])->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('/');
 
-Route::get('shop', [ShopController::class, 'index'])->name('shop');
-Route::get('products-search', [ShopController::class, 'search'])->name('search');
+    Route::get('shop', [ShopController::class, 'index'])->name('shop');
+    Route::get('wish-list', [ShopController::class, 'wishList'])->name('wishlist')->middleware('auth');
 
-Route::get('product-detail/{id}', [ProductDetailController::class, 'index'])->name('product.detail');
+    Route::get('product-detail/{id}', [ProductDetailController::class, 'index'])->name('product.detail');
+    Route::post('product-comment/{id}', [ProductDetailController::class, 'addComment'])->name('product.comment');
 
-Route::get('cart-detail', [CartController::class, 'index'])->name('cart.detail')->middleware('auth');
-Route::post('cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart')->middleware('auth');
-Route::put('cart-update', [CartController::class, 'update'])->name('cart.update')->middleware('auth');
-Route::get('cart-delete/{id}', [CartController::class, 'delete'])->name('cart.delete')->middleware('auth');
+    Route::get('cart-detail', [CartController::class, 'index'])->name('cart.detail')->middleware('auth');
+    Route::post('cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart')->middleware('auth');
 
-Route::get('account', [MyAccountController::class, 'index'])->name('account')->middleware('auth');
-Route::get('address-delete/{id}', [MyAccountController::class, 'deleteAddress'])->name('address.delete')->middleware('auth');
+    Route::get('account/{id}', [MyAccountController::class, 'index'])->name('account')->middleware('auth');
+    Route::put('update-account/{id}', [MyAccountController::class, 'updateAccount'])->name('update.account')->middleware('auth');
+    Route::put('change-password-account/{id}', [MyAccountController::class, 'changePassword'])->name('change.password')->middleware('auth');
+    Route::get('address-delete/{id}', [MyAccountController::class, 'deleteAddress'])->name('address.delete')->middleware('auth');
 
-Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout')->middleware('auth');
-Route::get('thank-you', [CheckoutController::class, 'thankYou'])->name('thank.you')->middleware('auth');
+    Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout')->middleware('auth');
+    Route::get('thank-you', [CheckoutController::class, 'thankYou'])->name('thank.you');
 
-Route::get('order-history', [OrderHistory::class, 'index'])->name('order.history')->middleware('auth');
-Route::get('order-detail-history/{id}', [OrderHistory::class, 'detail'])->name('order.detail.history')->middleware('auth');
-Route::get('order-cancel/{id}', [OrderHistory::class, 'cancel'])->name('order.cancel')->middleware('auth');
+    Route::get('order-detail-history/{id}', [OrderHistoryController::class, 'detail'])->name('order.detail.history')->middleware('auth');
+    Route::get('order-history', [OrderHistoryController::class, 'index'])->name('order.history')->middleware('auth');
+    Route::get('order-cancel/{id}', [OrderHistoryController::class, 'cancel'])->name('order.cancel')->middleware('auth');
+    Route::get('comment-product/{id}', [OrderHistoryController::class, 'commentOnProduct'])->name('comment.product')->middleware('auth');
 
-Route::get('feedback', [FeedbackController::class, 'index'])->name('feedback')->middleware('auth');
+});
+
+Route::get('/coming-soon', function () {
+    return view("client.comingsoon.index");
+});

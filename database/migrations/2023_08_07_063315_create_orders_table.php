@@ -14,7 +14,8 @@ return new class () extends Migration {
             $table->integer('staff')->nullable();
             $table->string('tracking_number');
             $table->string('status')->default('pending');
-            $table->string('payment')->nullable();
+            $table->string('payment');
+            $table->string('payment_status');
             $table->string('shipping_address');
             $table->integer('total');
             $table->timestamps();

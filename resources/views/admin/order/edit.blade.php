@@ -4,13 +4,6 @@
 
     <div class="row">
         <div class="page-title-box">
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
-                    <li class="breadcrumb-item active">Order Details</li>
-                </ol>
-            </div>
             <h4 class="page-title">Order Details</h4>
         </div>
     </div>
@@ -19,20 +12,21 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <div class="border p-3 mt-4 mt-lg-0 rounded">
                                             <h4 class="header-title mb-3">Order Summary</h4>
-                                            <h5 class="header-title ">#{{$order->tracking_number}}</h5>
+                                            <h5 class="header-title" style="color: #0a58ca">Tracking Number: #{{$order->tracking_number}}</h5>
                                             <div class="table-responsive">
                                                 <table class="table table-centered mb-0">
                                                     <tbody>
                                                     @foreach($orderProducts as $product)
                                                         <tr>
                                                             <td>
-                                                                <img src="{{ $product->product->productImages->count() ? asset('storage/' . $product->product->productImages[0]->image) : '' }}" alt="contact-img" title="contact-img" class="rounded me-2" height="48">
+                                                                <img src="{{ $product->product->productImages->count() ? asset('storage/' . $product->product->productImages[0]->image) : '' }}"
+                                                                     alt="contact-img" title="contact-img" class="rounded me-2" height="48">
                                                                 <p class="m-0 d-inline-block align-middle">
                                                                     <a class="text-body fw-semibold">{{ $product->product->name }}</a>
                                                                     <br>
@@ -69,17 +63,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-2">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="header-title mb-3">Notes</h4>
+                                    <h4 class="header-title mb-3" style="color: #cf0a28">Notes</h4>
                                     <h5>{{ $order->notes }}</h5>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-lg-4">
                             <div class="card">
                                 <div class="card-body">
@@ -113,8 +107,8 @@
                                                             <option {{ $status == 'pending' ? 'selected' : '' }} value="pending" >PENDING</option>
                                                         @case('accepted')
                                                             <option {{ $status == 'accepted' ? 'selected' : '' }}  value="accepted">ACCEPTED</option>
-                                                        @case('in_delivery')
-                                                            <option {{ $status == 'in_delivery' ? 'selected' : '' }}  value="in_delivery">IN DELIVERY</option>
+                                                        @case('in-delivery')
+                                                            <option {{ $status == 'in-delivery' ? 'selected' : '' }}  value="in-delivery">IN DELIVERY</option>
                                                         @case('success')
                                                             <option {{ $status == 'success' ? 'selected' : '' }}  value="success">SUCCESS</option>
                                                         @case('cancel')
@@ -134,7 +128,7 @@
 
                                         <div class="d-print-none mt-4">
                                             <div class="text-end">
-                                                <button type="submit" class="btn btn-info">Update</button>
+                                                <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i> Save</button>
                                             </div>
                                         </div>
                                     </form>

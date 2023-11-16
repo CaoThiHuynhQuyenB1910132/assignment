@@ -12,13 +12,19 @@ use Illuminate\View\View;
 
 class OrderController extends Controller
 {
-    public int $itemPerPage = 10;
-
-    public function index(): View
+    public function index(Request $request): View
     {
+        $selectedStatus = $request->input('selectedStatus');
+        $searchInput = $request->input('searchInput');
+
         $orders = Order::query()
-            ->orderByDesc('created_at')
-            ->paginate($this->itemPerPage);
+            ->when($selectedStatus, function ($query) use ($selectedStatus) {
+                return $query->where('status', $selectedStatus);
+            })
+            ->when($searchInput, function ($query) use ($searchInput) {
+                return $query->where('tracking_number', 'like', '%' . $searchInput . '%');
+            })
+            ->paginate(10);
 
         return view('admin.order.index', compact('orders'));
     }
@@ -29,13 +35,13 @@ class OrderController extends Controller
 
         $orderProducts = OrderProduct::where('order_id', $order->id)->with('product')->get();
 
-        return view('admin.order.edit', compact('order','orderProducts'));
+        return view('admin.order.edit', compact('order', 'orderProducts'));
     }
 
     public function update(Request $request, string $id): RedirectResponse
     {
         $data = $request->validate([
-            'status' => 'in:pending,accepted,in_delivery,success,cancel,refund',
+            'status' => 'in:pending,accepted,in-delivery,success,cancel,refund',
         ]);
 
         $order = Order::getOrderById($id);
@@ -45,21 +51,8 @@ class OrderController extends Controller
             'staff' => Auth::user()->id,
         ]);
 
-        toast('Cập nhật sản phẩm thành công', 'success');
+        toast('Updated Order', 'success');
 
         return redirect('order');
     }
-
-    public function searchOrder(Request $request): View
-    {
-        $searchOrder = $request->input('search');
-
-        $orders = Order::where('tracking_number', 'like', '%' . $searchOrder . '%')->get();
-
-        return view('admin.order.index',
-            [
-                'orders' => $orders,
-            ]);
-    }
-
 }

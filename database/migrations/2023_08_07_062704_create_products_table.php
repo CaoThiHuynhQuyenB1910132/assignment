@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
@@ -14,8 +13,8 @@ return new class () extends Migration {
             $table->string('description');
             $table->string('status');
             $table->boolean('featured');
-            $table->string('original_price');
-            $table->string('selling_price');
+            $table->double('original_price');
+            $table->double('selling_price');
             $table->boolean('stock');
             $table->string('category_id');
             $table->timestamps();

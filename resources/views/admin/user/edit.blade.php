@@ -25,22 +25,8 @@
                                             <div class="col-lg-6 mb-3">
                                                 <label>User Name</label>
                                                 <input class="form-control" type="text" name="name" value="{{ $user->name }}">
+
                                                 @error('name')
-                                                <span class="text-danger" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-
-                                            <div class="col-lg-6 mb-3">
-                                                <label>Status</label>
-                                                <select class="form-control @error('status') is-invalid @enderror" name="status">
-                                                    <option value="">Choose a status</option>
-                                                    <option value="1" {{ $user->status == '1' ? 'selected' : '' }}>Active</option>
-                                                    <option value="0" {{ $user->status == '0' ? 'selected' : '' }}>Block</option>
-                                                </select>
-
-                                                @error('status')
                                                 <span class="text-danger" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -64,7 +50,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 d-flex justify-content-center">
-                                        <button class="btn btn-primary" type="submit">Update</button>
+                                        <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i> Save</button>
                                     </div>
                                 </div>
                             </form>

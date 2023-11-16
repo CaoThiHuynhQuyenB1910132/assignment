@@ -9,21 +9,23 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Traits\ImageTrait;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\File;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProductController extends Controller
 {
     use ImageTrait;
 
-    public int $itemPerPage = 10;
-
-    public function index(): View
+    public function index(Request $request): View
     {
+        $searchInput = $request->input('searchInput');
         $products = Product::query()
             ->with('productImages')
             ->orderByDesc('created_at')
-            ->paginate($this->itemPerPage);
+            ->when($searchInput, function ($query) use ($searchInput) {
+                return $query->where('name', 'like', '%' . $searchInput . '%');
+            })
+            ->paginate(10);
 
         return view('admin.product.index', compact('products'));
     }
@@ -62,7 +64,7 @@ class ProductController extends Controller
             }
         }
 
-        toast('Tạo Sản Phẩm Thành Công', 'success');
+        toast('Created Product', 'success');
 
         return redirect('product');
     }
@@ -105,7 +107,7 @@ class ProductController extends Controller
             }
         }
 
-        toast('Cập nhật sản phẩm thành công', 'success');
+        toast('Updated Product', 'success');
 
         return redirect('product');
     }
@@ -114,9 +116,8 @@ class ProductController extends Controller
     {
         $product = Product::getProductById($id);
 
-        if ($product->carts->count() > 0)
-        {
-            toast('Tồn tại sản phẩm trong giỏ hàng của người dùng, Bạn không thể xóa', 'warning');
+        if ($product->carts->count() > 0) {
+            toast('The product exists in the users shopping cart. You cannot delete it', 'warning');
             return redirect('product');
         } else {
 
@@ -128,9 +129,9 @@ class ProductController extends Controller
 
             $product->delete();
 
-            toast('Xóa sản phẩm thành công', 'success');
+            toast('Deleted Product', 'success');
 
-            return redirect('product')->with('status', 'Xóa sản phẩm thành công!');
+            return redirect('product')->with('status', 'Deleted Product');
         }
     }
 
@@ -142,11 +143,11 @@ class ProductController extends Controller
             $imageUrl = 'storage/' . $image->image;
             $this->deleteImage($imageUrl);
             $image->delete();
-            toast('Xóa ảnh sản phẩm thành công', 'success');
+            toast('Deleted Image Product', 'success');
             return redirect()->back();
         }
 
-        toast('Xóa ảnh sản phẩm không thành công', 'danger');
+        toast('Deleted Image Product', 'danger');
         return redirect()->back();
     }
 }

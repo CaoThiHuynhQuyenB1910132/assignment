@@ -1,5 +1,7 @@
 @extends('client.layouts.app')
 
 @section('content')
-    <livewire:checkout></livewire:checkout>
+    <div>
+        <livewire:checkout wire:key="checkout"></livewire:checkout>
+    </div>
 @endsection

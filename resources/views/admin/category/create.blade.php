@@ -29,6 +29,22 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Thêm Hình Ảnh</label>
+                                            <div class="custom-file mb-3">
+                                                <input type="file" accept="image/*" class="custom-file-input @error('image') is-invalid @enderror" id="image"
+                                                       name="image">
+
+                                                @error('image')
+                                                <span class="text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                                <label class="custom-file-label" for="image">Chọn file</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="col-lg-6 mb-3">
                                         <label>Featured</label>
@@ -46,7 +62,7 @@
                                     </div>
 
                                     <div class="col-lg-12 d-flex justify-content-center">
-                                        <button class="btn btn-primary" type="submit">Save</button>
+                                        <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i> Save</button>
                                     </div>
                             </div>
                             </div>

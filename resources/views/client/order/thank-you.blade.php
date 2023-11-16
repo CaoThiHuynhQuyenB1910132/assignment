@@ -25,9 +25,7 @@
             <p>We've send the link to your inbox. Lorem ipsum dolor sit,lorem lorem </p>
 
                 <a href="{{ route('/') }}" class="btn btn-outline-success">Back Home</a>
-                <a href="{{ route('order.history') }}" class="btn btn-outline-danger">Order Detail</a>
-
-
+{{--                <a href="{{ route('order.detail.history', ['id' => $order->id]) }}" class="btn btn-outline-danger">Order Detail</a>--}}
         </div>
     </div>
 </div>

@@ -32,17 +32,21 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-
                                     <div class="table-responsive">
-                                        <table class="datatable table table-stripped table table-hover table-center mb-0">
-
-                                            <thead>
+                                        <div class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between">
+                                            <form method="GET" action="{{ route('product') }}" class="col-auto">
+                                                @csrf
+                                                <label for="searchInput" class="visually-hidden">Search</label>
+                                                <input type="search" class="form-control" name="searchInput" id="searchInput" placeholder="Search...">
+                                            </form>
+                                        </div>
+                                        <table class="table table-stripped table table-hover table-center mb-0 mt-2">
+                                            <thead class="table-light">
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Product Name</th>
                                                 <th>Status</th>
                                                 <th>Featured</th>
-                                                <th>Original Price</th>
                                                 <th>Selling Price</th>
                                                 <th>Stock</th>
                                                 <th class="text-right">Action</th>
@@ -53,31 +57,30 @@
                                             @foreach($products as $key => $product)
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
-                                                    <td class="sorting_1">
+                                                    <td>
                                                         @if($product->productImages->count())
                                                             <img src="{{ asset('storage/' . $product->productImages[0]->image) }}"
                                                                  alt="{{ $product->name }}" title="{{ $product->name }}"
                                                                  class="rounded me-3"
                                                                  height="48">
                                                         @endif
-                                                        <p class="m-0 d-inline-block align-middle font-16">
+                                                        <p class="m-0 d-inline-block">
                                                             <a href="{{ route('edit.product', ['id' => $product->id]) }}" class="text-body">{{ $product->name }}</a>
                                                         </p>
                                                     </td>
 
                                                     <td>
-                                                        <span class="badge badge-{{ $product->status == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $product->status == 1 ? 'Hien Thi' : 'An' }}</span>
+                                                        <span class="badge badge-{{ $product->status == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $product->status == 1 ? 'Show' : 'Hidden' }}</span>
                                                     </td>
 
                                                     <td>
-                                                        <span class="badge badge-{{ $product->featured == 1 ? 'success-lighten' : 'primary-lighten' }}">{{ $product->featured == 1 ? 'Nổi bât' : 'Bình thường' }}</span>
+                                                        <span class="badge badge-{{ $product->featured == 1 ? 'success-lighten' : 'primary-lighten' }}">{{ $product->featured == 1 ? 'Featured' : 'Normal' }}</span>
                                                     </td>
 
-                                                    <td>{{ $product->original_price }}</td>
                                                     <td>{{ $product->selling_price }}</td>
 
                                                     <td>
-                                                        <span class="badge badge-{{ $product->stock == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $product->stock == 1 ? 'Còn hàng' : 'Hết hàng' }}</span>
+                                                        <span class="badge badge-{{ $product->stock == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $product->stock == 1 ? 'In Stock' : 'Out Stock' }}</span>
                                                     </td>
 
                                                     <td class="table-action">
@@ -88,7 +91,7 @@
                                             </tbody>
                                             @endforeach
                                         </table>
-                                        {{ $products->links() }}
+                                        <div class="pt-3">{{ $products->links() }}</div>
                                     </div>
                                 </div>
                             </div>

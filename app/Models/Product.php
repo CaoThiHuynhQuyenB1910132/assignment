@@ -35,10 +35,10 @@ class Product extends Model
 
     public function wishLists(): HasMany
     {
-        return $this->hasMany(WishList::class);
+        return $this->hasMany(WishList::class, 'product_id');
     }
 
-    public function feedBacks(): HasMany
+    public function feedbacks(): HasMany
     {
         return $this->hasMany(FeedBack::class);
     }

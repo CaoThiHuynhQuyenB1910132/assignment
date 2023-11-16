@@ -18,7 +18,6 @@
                                 <h4 class="page-title">Categories</h4>
                             </div>
                         </div>
-
                         <div class="row mb-2">
                             <div class="col-sm-4">
                                 <a href="{{ route('create.category') }}" class="btn btn-danger mb-2">
@@ -34,8 +33,7 @@
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="datatable table table-stripped table table-hover table-center mb-0">
-
-                                            <thead>
+                                            <thead class="table-light">
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Category Name</th>
@@ -45,11 +43,14 @@
                                             </thead>
 
                                             <tbody>
+                                            @if ($categories->count()>0)
                                             @foreach($categories as $key => $category)
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
-                                                    <td>{{ $category->name }}</td>
-
+                                                    <td>
+                                                        <img class="img-fluid avatar-sm" src="{{ 'storage/' . $category->image }}">
+                                                            {{ $category->name }}
+                                                    </td>
                                                     <td>
                                                         <span class="badge badge-{{ $category->featured == 1 ? 'danger-lighten' : 'primary-lighten' }}">{{ $category->featured === 1 ? 'Nổi bât' : 'Bình thường' }}</span>
                                                     </td>
@@ -61,8 +62,14 @@
                                                 </tr>
                                             </tbody>
                                             @endforeach
+                                            @else
+                                                <tr>
+                                                    <th class="text-center" colspan="4">Chưa có danh mục nào được thêm</th>
+                                                </tr>
+                                            @endif
                                         </table>
-                                        {{ $categories->links() }}
+
+                                        <div class="pt-3">{{ $categories->links() }}</div>
                                     </div>
                                 </div>
                             </div>

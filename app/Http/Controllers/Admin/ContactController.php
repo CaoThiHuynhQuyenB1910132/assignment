@@ -37,7 +37,7 @@ class ContactController extends Controller
             'phone' => $contact['phone'],
         ]);
 
-        toast('Thêm Liên Hệ Thành Công', 'success');
+        toast('Add Contact Successfully', 'success');
 
         return redirect('contact');
     }
@@ -62,7 +62,7 @@ class ContactController extends Controller
             'phone' => $data['phone'],
         ]);
 
-        toast('Update new banner success', 'success');
+        toast('Updated new contact success', 'success');
 
         return redirect('contact');
     }
@@ -73,7 +73,7 @@ class ContactController extends Controller
 
         $contact->delete();
 
-        toast('Đã xóa liên hệ', 'success');
+        toast('Deleted Contact', 'success');
 
         return redirect('contact');
     }

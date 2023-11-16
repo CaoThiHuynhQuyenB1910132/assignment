@@ -38,7 +38,6 @@
                                                 <th>ID</th>
                                                 <th>User Name</th>
                                                 <th>Gender</th>
-                                                <th>Status</th>
                                                 <th>Phone</th>
                                                 <th>Email</th>
                                                 <th>Role</th>
@@ -47,17 +46,18 @@
                                             </thead>
 
                                             <tbody>
-                                            @foreach ( $users as $key => $user )
+                                            @foreach ( $users as $user )
                                                 <tr>
-                                                    <td>{{ $key + 1 }}</td>
-                                                    <td>{{ $user->name }}</td>
+                                                    <td>{{ $user->id }}</td>
 
                                                     <td>
-                                                        <span class="badge badge-{{ $user->gender == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $user->gender == 1 ? 'Woman' : 'Man' }}</span>
+                                                        <img src="{{ asset('storage/'.$user->avatar) }}"
+                                                             class="rounded me-3" height="48">
+                                                        {{ $user->name }}
                                                     </td>
 
                                                     <td>
-                                                        <span class="badge badge-{{ $user->status == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $user->status == 1 ? 'Active' : 'Block' }}</span>
+                                                        <span class="badge badge-{{ $user->gender == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $user->gender == 1 ? 'Woman' : 'Man' }}</span>
                                                     </td>
 
                                                     <td>{{ $user->phone }}</td>
@@ -79,6 +79,7 @@
                                             @endforeach
                                             </tbody>
                                         </table>
+                                        <div class="pt-3">{{ $users->links() }}</div>
                                     </div>
                                 </div>
                             </div>

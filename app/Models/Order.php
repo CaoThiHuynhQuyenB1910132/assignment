@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,9 +20,19 @@ class Order extends Model
         'tracking_number',
         'status',
         'payment',
+        'payment_status',
         'shipping_address',
         'total',
     ];
+
+    public static function getMonthlyRevenue()
+    {
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+
+        return static::whereBetween('updated_at', [$startOfMonth, $endOfMonth])->where('status', 'success')
+            ->sum('total');
+    }
 
     public function user(): BelongsTo
     {
@@ -37,9 +48,15 @@ class Order extends Model
     {
         return $this->hasMany(OrderProduct::class);
     }
+    public function reviewOrders(): HasMany
+    {
+        return $this->hasMany(ReviewOrder::class);
+    }
 
     public static function getOrderById(string $id): Model|Collection|Builder|array|null
     {
         return Order::query()->findOrFail($id);
     }
+
+
 }

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <base href="/">
 <head>
     <meta charset="utf-8">
-    <title>Dashboard | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
+    <title>Fast Food</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
     <meta content="Coderthemes" name="author">
@@ -17,11 +16,10 @@
     <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     @yield('style')
-    @vite('resources/css/app.css')
     @livewireStyle
 </head>
 
-<body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+<body class="loading" >
 
 <div class="wrapper">
     @include('sweetalert::alert')
@@ -35,18 +33,15 @@
 </div>
 
 @yield('script')
-@livewireScripts
-<div class="rightbar-overlay"></div>
-<script src="/path/or/uri/to/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="admin1/path/or/uri/to/tinymce.min.js" referrerpolicy="origin"></script>
 <script src="admin1/assets/js/vendor.min.js"></script>
 <script src="admin1/assets/js/app.min.js"></script>
 <script src="admin1/assets/js/vendor/apexcharts.min.js"></script>
 <script src="admin1/assets/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
 <script src="admin1/assets/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
 <script src="admin1/assets/js/pages/demo.dashboard.js"></script>
-<!-- plugin js -->
-<script src="assets/js/vendor/dropzone.min.js"></script>
-<!-- init js -->
-<script src="assets/js/ui/component.fileupload.js"></script>
+<script src="admin1/assets/js/vendor/dropzone.min.js"></script>
+<script src="admin1/assets/js/ui/component.fileupload.js"></script>
 </body>
 </html>

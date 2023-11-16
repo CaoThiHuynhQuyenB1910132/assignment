@@ -23,11 +23,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'gender',
-        'status',
         'phone',
         'email',
         'password',
         'is_admin',
+        'avatar',
         'provider_id'
     ];
 
@@ -69,6 +69,11 @@ class User extends Authenticatable
     public function feedbacks(): HasMany
     {
         return $this->hasMany(FeedBack::class);
+    }
+
+    public function reviewOrders(): HasMany
+    {
+        return $this->hasMany(ReviewOrder::class);
     }
 
     public static function getUserById(string $id): Model|Collection|Builder|array|null

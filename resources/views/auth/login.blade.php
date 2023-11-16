@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <a href="pages-recoverpw-2.html" class="text-muted float-end"><small>{{ __('Forgot Your Password?') }}</small></a>
+                        <a href="{{ route('password.request') }}" class="text-muted float-end"><small>{{ __('Forgot Your Password?') }}</small></a>
                         <label for="password" class="form-label">Password</label>
                         <input placeholder="Password" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                         @error('password')
@@ -75,7 +75,7 @@
                     <div class="d-grid mb-0 text-center">
                         <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i> {{ __('Login') }} </button>
                     </div>
-                    <!-- social-->
+
                     <div class="text-center mt-4">
                         <p class="text-muted font-16">Sign in with</p>
                         <ul class="social-list list-inline mt-3">
@@ -83,7 +83,7 @@
                                 <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>
                             </li>
                             <li class="list-inline-item">
-                                <a href="href="{{ route('socialite.redirect',['provider' => 'google']) }}"" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
+                                <a href="{{ route('socialite.redirect',['provider' => 'google']) }}" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
                             </li>
                             <li class="list-inline-item">
                                 <a href="javascript: void(0);" class="social-list-item border-info text-info"><i class="mdi mdi-twitter"></i></a>
@@ -94,19 +94,13 @@
                         </ul>
                     </div>
                 </form>
-                <!-- end form-->
-
-                <!-- Footer-->
                 <footer class="footer footer-alt">
-                    <p class="text-muted">Don't have an account? <a href="pages-register-2.html" class="text-muted ms-1"><b>Sign Up</b></a></p>
+                    <p class="text-muted">Don't have an account? <a href="{{ route('register') }}" class="text-muted ms-1"><b>Sign Up</b></a></p>
                 </footer>
 
-            </div> <!-- end .card-body -->
-        </div> <!-- end .align-items-center.d-flex.h-100-->
+            </div>
+        </div>
     </div>
-    <!-- end auth-fluid-form-box-->
-
-    <!-- Auth fluid right content -->
     <div class="auth-fluid-right text-center">
         <div class="auth-user-testimonial">
             <h2 class="mb-3">I love the color!</h2>
@@ -115,13 +109,12 @@
             <p>
                 - Hyper Admin User
             </p>
-        </div> <!-- end auth-user-testimonial-->
+        </div>
     </div>
-    <!-- end Auth fluid right content -->
 </div>
-<!-- end auth-fluid-->
 
-<!-- bundle -->
+
+
 <script src="admin1/assets/js/vendor.min.js"></script>
 <script src="admin1/assets/js/app.min.js"></script>
 

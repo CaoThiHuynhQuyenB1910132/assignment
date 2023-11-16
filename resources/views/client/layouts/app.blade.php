@@ -39,17 +39,53 @@
 
         <link rel="stylesheet" type="text/css" href="client/new/css/util.css">
         <link rel="stylesheet" type="text/css" href="client/new/css/main.css">
-        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.31/dist/sweetalert2.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="client/new/css/custom.css">
+
+
         @stack('styles')
         @livewireStyles
     </head>
-
     <body class="animsition">
 
-        <div class="home">
-            @include('client.layouts.nav')
+        <div class="home" >
+            @php
+                $categories = app('categories');
+            @endphp
             @include('sweetalert::alert')
+            @include('client.layouts.nav')
+
             @yield('content')
+            <!-- Messenger Plugin chat Code -->
+            <div id="fb-root"></div>
+
+            <!-- Your Plugin chat code -->
+            <div id="fb-customer-chat" class="fb-customerchat">
+            </div>
+
+            <script>
+                var chatbox = document.getElementById('fb-customer-chat');
+                chatbox.setAttribute("page_id", "172853315905140");
+                chatbox.setAttribute("attribution", "biz_inbox");
+            </script>
+
+            <!-- Your SDK code -->
+            <script>
+                window.fbAsyncInit = function() {
+                    FB.init({
+                        xfbml            : true,
+                        version          : 'v18.0'
+                    });
+                };
+
+                (function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+            </script>
+
         </div>
         @include('client.layouts.footer')
 
@@ -59,6 +95,10 @@
                 </span>
         </div>
 
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <x-livewire-alert::scripts />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="client/new/vendor/jquery/jquery-3.2.1.min.js"></script>
 
     <script src="client/new/vendor/animsition/js/animsition.min.js"></script>
@@ -100,7 +140,7 @@
     <script src="client/new/js/main.js"></script>
 
     @stack('scripts')
-    @livewireScripts
+        @livewireScripts
     </body>
 
 </html>

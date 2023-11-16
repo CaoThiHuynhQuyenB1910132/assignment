@@ -19,6 +19,28 @@ trait ImageTrait
         return $path;
     }
 
+    public function image(Request $request, string $fieldName, string $storagePath): string
+    {
+        $file = $request->file($fieldName);
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+
+        $path = $file->storeAs($storagePath, $filename, 'public');
+
+        return $path;
+    }
+
+    public function uploadAvatar(Request $request, string $fieldName, string $storagePath): ?string
+    {
+        if ($request->hasFile($fieldName)) {
+            $file = $request->file($fieldName);
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+
+            return $file->storeAs($storagePath, $filename, 'public');
+        }
+
+        return null;
+    }
+
     public function deleteImage(string $path): bool
     {
         return File::delete($path);

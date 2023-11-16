@@ -12,7 +12,8 @@ return new class () extends Migration {
     {
         Schema::create('wish_lists', function (Blueprint $table) {
             $table->id();
-            $table->boolean('status');
+            $table->string('user_id');
+            $table->string('product_id');
             $table->timestamps();
         });
     }

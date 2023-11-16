@@ -9,7 +9,7 @@ class ProductImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['nullable', 'image'],
+            'image' => ['required', 'image'],
             'product_id' => ['required'],
         ];
     }

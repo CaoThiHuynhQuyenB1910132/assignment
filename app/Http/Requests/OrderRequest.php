@@ -16,6 +16,7 @@ class OrderRequest extends FormRequest
             'tracking_number' => ['required'],
             'status' => ['required'],
             'payment'  => ['nullable'],
+            'payment_status' => ['nullable'],
             'shipping_address' => ['required'],
             'total' => ['required'],
         ];

@@ -12,6 +12,7 @@ use Illuminate\View\View;
 class CategoryController extends Controller
 {
     use ImageTrait;
+
     public int $itemPerPage = 10;
 
     public function index(): View
@@ -31,8 +32,12 @@ class CategoryController extends Controller
     {
         $validatedData = $request->validated();
 
+        if ($request->hasFile('image')) {
+            $validatedData['image'] = $this->image($request, 'image', 'images');
+        }
         Category::create([
             'name' => $validatedData['name'],
+            'image' => $validatedData['image'],
             'featured' => $validatedData['featured'],
         ]);
 
@@ -54,12 +59,23 @@ class CategoryController extends Controller
 
         $category = Category::getCategoryById($id);
 
+        if ($request->hasFile('image')) {
+            $image = 'storage/' . $category->image;
+
+            $this->deleteImage($image);
+
+            $data['image'] = $this->image($request, 'image', 'images');
+        } else {
+            $data['image'] = $category->image;
+        }
+
         $category->update([
             'name' => $data['name'],
+            'image' => $data['image'],
             'featured' => $data['featured'],
         ]);
 
-        toast('Cập nhật thành công', 'success');
+        toast('Updated Category', 'success');
 
         return redirect('category');
     }
@@ -68,16 +84,19 @@ class CategoryController extends Controller
     {
         $category = Category::getCategoryById($id);
 
-        if( $category->products->count() > 0)
-        {
+        if($category->products->count() > 0) {
             toast('You can not delete category !!! Check product', 'warning');
             return redirect('category');
         } else {
+            $image = 'storage/' . $category->image;
+
+            $this->deleteImage($image);
+
             $category->delete();
 
-            toast('Đã xóa danh mục', 'success');
+            toast('Deleted Category', 'success');
 
-            return redirect('category')->with('status', 'Xóa danh mục thành công!');
+            return redirect('category');
         }
     }
 }

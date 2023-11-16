@@ -4,15 +4,18 @@ namespace App\Livewire;
 
 use App\Models\Address;
 use App\Models\District;
-use App\Models\Order;
 use App\Models\Province;
 use App\Models\Ward;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Location extends Component
 {
+    use LivewireAlert;
+
     public $name;
     public $email;
     public $houseNumber;
@@ -36,16 +39,16 @@ class Location extends Component
                 'wardId' => ['required'],
             ],
             [
-                'name.required' => 'Trường này không được bỏ trống.',
-                'houseNumber.required' => 'Trường này không được bỏ trống.',
-                'houseNumber.max' => 'Tối đa 255 kí tự.',
-                'email.required' => 'Trường này không được bỏ trống.',
-                'provinceId.required' => 'Trường này không được bỏ trống.',
-                'districtId.required' => 'Trường này không được bỏ trống.',
-                'wardId.required' => 'Trường này không được bỏ trống.',
-                'phone.required' => 'Trường này không được bỏ trống.',
-                'phone.numeric' => 'Sai định dạng.',
-                'phone.regex' => 'Sai định dạng.',
+                'name.required' => 'Not be empty.',
+                'houseNumber.required' => 'Not be empty.',
+                'houseNumber.max' => 'Maximum 255 characters.',
+                'email.required' => 'Not be empty.',
+                'provinceId.required' => 'Not be empty.',
+                'districtId.required' => 'Not be empty.',
+                'wardId.required' => 'Not be empty.',
+                'phone.required' => 'Not be empty.',
+                'phone.numeric' => 'Wrong format.',
+                'phone.regex' => 'Wrong format.',
             ]
         );
 
@@ -62,13 +65,21 @@ class Location extends Component
             Address::create($validatedData);
             $this->reset();
 
-            toast('Add Address Successfully', 'success');
+            $this->alert('success', 'Added Address');
         } else {
-            toast('Mỗi người không thể thêm quá 5 địa chỉ.', 'warning');
-            $this->reset();
+            $this->alert('warning', 'No more than 5 addresses per person');
+            $this->dispatch('refreshAddress');
+
         }
     }
 
+    public function deleteAddress(string $id)
+    {
+        Address::getAddressById($id)->delete();
+        $this->dispatch('refreshAddress');
+    }
+
+    #[On('refreshAddress')]
     public function render(): View
     {
         $provinces = Province::all();
