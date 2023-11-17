@@ -14,8 +14,11 @@ use Livewire\Component;
 class ProductDetail extends Component
 {
     use LivewireAlert;
+
     public $productId;
+
     public $quantity = 1;
+
     public $product;
 
     protected array $rules = [
@@ -23,7 +26,6 @@ class ProductDetail extends Component
     ];
 
     #[On('refreshProductCart')]
-
     public function mount($productId): void
     {
         $this->product = Product::find($productId);
@@ -46,7 +48,10 @@ class ProductDetail extends Component
 
     public function addToCart($productId): void
     {
-        $this->validate();
+        if (! Auth::user()) {
+            $this->redirectRoute('login');
+            return;
+        }
 
         $checkProductExists = Cart::where('user_id', Auth::id())
             ->where('product_id', $productId)
@@ -98,7 +103,7 @@ class ProductDetail extends Component
         $productRating = round(FeedBack::where('product_id', $this->product->id)->avg('rating'), 1);
         $feedbacks = Feedback::where('product_id', $this->product->id)->orderBy('id', 'desc')->paginate(5);
 
-        return view('livewire.product-detail',[
+        return view('livewire.product-detail', [
             'product' => $this->product,
             'productRating' => $productRating,
             'feedbacks' => $feedbacks,

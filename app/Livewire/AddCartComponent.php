@@ -21,7 +21,6 @@ class AddCartComponent extends Component
     public string|int $productId;
 
     #[On('refreshAddToCart')]
-
     public function mount(): void
     {
         $user = User::where('id', Auth::id())

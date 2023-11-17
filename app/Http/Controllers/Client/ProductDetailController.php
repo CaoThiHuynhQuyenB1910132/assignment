@@ -19,7 +19,7 @@ class ProductDetailController extends Controller
 
         $randomProducts = Product::inRandomOrder()->get();
 
-        return view('client.product-detail.index', compact('product', 'randomProducts',  ));
+        return view('client.product-detail.index', compact('product', 'randomProducts', ));
     }
 
     public function addComment(Request $request, string $id): RedirectResponse

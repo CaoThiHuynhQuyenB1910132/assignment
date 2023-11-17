@@ -70,7 +70,7 @@ Route::middleware(['shop-hours'])->group(function () {
     Route::post('product-comment/{id}', [ProductDetailController::class, 'addComment'])->name('product.comment');
 
     Route::get('cart-detail', [CartController::class, 'index'])->name('cart.detail')->middleware('auth');
-//    Route::post('cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart')->middleware('auth');
+    //    Route::post('cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart')->middleware('auth');
 
     Route::get('account/{id}', [MyAccountController::class, 'index'])->name('account')->middleware('auth');
     Route::put('update-account/{id}', [MyAccountController::class, 'updateAccount'])->name('update.account')->middleware('auth');
