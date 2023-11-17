@@ -6,67 +6,80 @@ use App\Models\Cart;
 use App\Models\Feedback;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ProductDetail extends Component
 {
+    use LivewireAlert;
     public $productId;
-    public $quantity;
+    public $quantity = 1;
     public $product;
 
-    protected $rules = [
+    protected array $rules = [
         'quantity' => ['required', 'integer', 'min:1'],
     ];
 
-    public function mount(int $productId)
+    #[On('refreshProductCart')]
+
+    public function mount($productId): void
     {
-        $this->productId = $productId;
         $this->product = Product::find($productId);
+
     }
 
-    public function incQuantity()
+    public function incQuantity(): void
     {
-        $this->quantity++;
-
+        if ($this->quantity < 10) {
+            $this->quantity++;
+        }
     }
 
-    public function decQuantity()
+    public function decQuantity(): void
     {
-        $this->quantity--;
+        if ($this->quantity > 1) {
+            $this->quantity--;
+        }
     }
 
-    public function addToCart(): void
+    public function addToCart($productId): void
     {
         $this->validate();
 
         $checkProductExists = Cart::where('user_id', Auth::id())
-            ->where('product_id', $this->productId)
+            ->where('product_id', $productId)
             ->first();
 
-        if (!$checkProductExists) {
+        if (! $checkProductExists) {
             Cart::create([
-                'product_id' => $this->productId,
+                'product_id' => $productId,
                 'user_id' => Auth::id(),
                 'quantity' => $this->quantity,
             ]);
 
-            session()->flash('success', 'Added product!');
-        } else {
-            $newQuantity = $checkProductExists->quantity + $this->quantity;
-
-            if ($newQuantity >= 10) {
-                session()->flash('error', 'Product quantity reached maximum limit!');
-            } else {
-                $checkProductExists->update([
-                    'quantity' => $newQuantity,
-                ]);
-
-                session()->flash('success', 'Added product!');
-            }
+            $this->alert('success', 'Added To Cart');
+            $this->dispatch('refreshMiniCart');
+            return;
         }
+
+        $newQuantity = $checkProductExists->quantity + $this->quantity;
+
+        if ($newQuantity > 10) {
+            $this->alert('warning', 'Maximum 10 items');
+            $this->dispatch('refreshProductCart');
+            return;
+        }
+
+        $checkProductExists->update([
+            'quantity' => $newQuantity,
+        ]);
+        $this->alert('success', 'Update cart success');
+        $this->dispatch('refreshMiniCart');
     }
 
-    public function render()
+    public function render(): View
     {
         $checkBought = false;
         if (Auth::user()) {

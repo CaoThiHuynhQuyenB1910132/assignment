@@ -69,7 +69,7 @@ class CartDetail extends Component
         $product = Cart::where('product_id', $id)
             ->where('user_id', Auth::user()->id)->firstOrFail();
         $product->delete();
-        $this->dispatch('refresh');
+        $this->dispatch('refreshMiniCart');
     }
 
     public function render(): View

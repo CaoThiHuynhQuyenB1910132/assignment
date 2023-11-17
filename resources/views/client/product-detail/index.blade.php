@@ -1,9 +1,7 @@
 @extends('client.layouts.app')
 @section('content')
-
-
-    <div>
-        <livewire:product-detail :productId="$product->id"></livewire:product-detail>
+    <div wire:ignore.self>
+        <livewire:product-detail :productId="$product->id" wire:key="addToCart{{ $product->name }}"></livewire:product-detail>
     </div>
 
     <section class="sec-related bg0 p-b-85">
@@ -42,10 +40,10 @@
                                                 <img src="client/new/images/icons/icon-view.png" alt="ICON">
                                             </a>
 
-                                            <div>
+                                            <div wire:ignore.self>
                                                 <livewire:add-cart-component :productId="$product->id" wire:key="addCart{{ $product->name }}"></livewire:add-cart-component>
                                             </div>
-                                            <div>
+                                            <div wire:ignore.self>
                                                 <livewire:wishlist-component :productId="$product->id" wire:key="wishlist{{ $product->name }}"></livewire:wishlist-component>
                                             </div>
                                         </div>

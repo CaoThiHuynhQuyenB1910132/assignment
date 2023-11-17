@@ -20,7 +20,7 @@ class WishlistComponent extends Component
 
     public string|int $productId;
 
-    #[On('refresh')]
+    #[On('refreshWishlist')]
     public function mount(): void
     {
         if (! Auth::user()) {
@@ -54,14 +54,14 @@ class WishlistComponent extends Component
                 'product_id' => $productId,
             ]);
             $this->alert('success', 'Added To Wishlist');
-            $this->dispatch('refresh');
+            $this->dispatch('refreshWishlist');
 
             return;
         }
 
         $wishlist->delete();
         $this->alert('success', 'Remove From Wishlist');
-        $this->dispatch('refresh');
+        $this->dispatch('refreshWishlist');
 
     }
 

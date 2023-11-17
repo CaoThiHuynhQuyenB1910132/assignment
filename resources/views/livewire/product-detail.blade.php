@@ -63,29 +63,14 @@
                         <p class="txt-s-101 cl6">
                             {{$product->description}}
                         </p>
-{{--                        <form action="{{ route('add.to.cart', ['id' => $product->id]) }}" method="POST" id="addcart">--}}
-{{--                            @csrf--}}
-{{--                            <div class="flex-w flex-m p-t-55 p-b-30">--}}
-{{--                                <div class="wrap-num-product flex-w flex-m bg12 p-rl-10 m-r-30 m-b-30">--}}
-{{--                                    <div onclick="decQuantity()" value="-" class="btn-num-product-down flex-c-m fs-29"></div>--}}
-{{--                                    <input class="txt-m-102 cl6 txt-center num-product" type="number" id="quantity" name="quantity"--}}
-{{--                                           value="1" readonly>--}}
-{{--                                    <div onclick="incQuantity()" value="+" class="btn-num-product-up flex-c-m fs-16"></div>--}}
-{{--                                </div>--}}
-{{--                                <a href="{{ route('add.to.cart', ['id' => $product->id])}}" onclick="event.preventDefault(); document.getElementById('addcart').submit();" class="btn flex-c-m txt-s-103 cl0 bg10 size-a-2 hov-btn2 trans-04 m-b-30 js-addcart1">--}}
-{{--                                    Add to cart--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                        </form>--}}
-
                             <div class="flex-w flex-m p-t-55 p-b-30">
                                 <div class="wrap-num-product flex-w flex-m bg12 p-rl-10 m-r-30 m-b-30">
-                                    <button wire:click="decQuantity()" value="-" class="btn-num-product-down flex-c-m fs-29"></button>
-                                    <input class="txt-m-102 cl6 txt-center num-product" type="number" id="quantity" name="quantity"
+                                    <div wire:click="decQuantity" class="btn-num-product-down flex-c-m fs-29"></div>
+                                    <input wire:model="quantity" value="{{ $product->quantity }}" class="txt-m-102 cl6 txt-center num-product" type="text" id="quantity" name="quantity"
                                            value="1" readonly>
-                                    <button wire:click="incQuantity()" value="+" class="btn-num-product-up flex-c-m fs-16"></button>
+                                    <div wire:click="incQuantity" class="btn-num-product-up flex-c-m fs-16"></div>
                                 </div>
-                                <button wire:click.prevent="addToCart({{ $product->id }})" class="btn flex-c-m txt-s-103 cl0 bg10 size-a-2 hov-btn2 trans-04 m-b-30">
+                                <button wire:click.prevent="addToCart({{ $product->id }})" type="button" class="btn flex-c-m txt-s-103 cl0 bg10 size-a-2 hov-btn2 trans-04 m-b-30">
                                     Add to cart
                                 </button>
                             </div>
