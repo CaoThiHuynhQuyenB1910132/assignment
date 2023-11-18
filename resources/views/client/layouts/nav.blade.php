@@ -14,14 +14,16 @@
                         </li>
                         <li><a href="{{ route('shop') }}">Shop</a></li>
                         @if (Auth::check())
+                            <div class="heading "></div>
                             <li><a href="{{ route('wishlist') }}">Wishlist</a></li>
                             <li><a href="{{ route('cart.detail') }}">Cart</a></li>
                         @endif
 
                         <li>
                             @if (Auth::check())
-                                <a href="{{ route('account',['id' => \Illuminate\Support\Facades\Auth::user()->id]) }}">My Account</a>
+                                <a href="">{{ Auth::user()->name }}</a>
                                 <ul class="sub-menu">
+                                    <li><a href="{{ route('account',['id' => \Illuminate\Support\Facades\Auth::user()->id]) }}">My Account</a></li>
                                     <li>
                                         <a href="{{ route('order.history') }}">My Order</a>
                                     </li>
@@ -34,27 +36,23 @@
                                     </li>
                                 </ul>
                             @else
-
-                            <a href="" class="user_link">My Account</a>
-                                <ul class="sub-menu">
-                                    @if (Auth::check())
-                                        <li>
-                                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                            @if (Auth::check())
+                                <li>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">Logout</a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                @csrf
-                                            </form>
-                                        </li>
-                                    @else
-                                        <li>
-                                            <a href="{{route('login')}}">Login</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @else
+                                <li>
+                                    <a href="{{route('login')}}">Login</a>
 
-                                        </li>
-                                        <li>
-                                            <a href="{{route('register')}}">Register</a>
-                                        </li>
-                                    @endif
-                                </ul>
+                                </li>
+                                <li>
+                                    <a href="{{route('register')}}">Register</a>
+                                </li>
+                                @endif
                             @endif
                         </li>
                     </ul>

@@ -75,9 +75,9 @@
                     <div>
                         <div class="flex-w flex-r-m p-b-45 flex-row-rev">
                             <div class="flex-w flex-m p-tb-8 ml-auto">
-                                <div class="flex-w cl9 flex-m m-tb-15 m-r-15">
-                                    <div class="txt-s-101 cl9 m-r-30 size-w-53">
-                                        <select wire:model.live="sortBy" name="sortBy" wire:key="sortBy" class="form-select">
+                                <div class="flex-w cl9 flex-m m-tb-15">
+                                    <div class="txt-s-101 cl9 size-w-53">
+                                        <select wire:model.live="sortBy" name="sortBy" wire:key="sortBy" class="form-select" style="padding: .5rem">
                                             <option value="">Sort By</option>
                                             <option value="highToLow">Sort by high to low</option>
                                             <option value="lowToHigh">Sort by low to high</option>

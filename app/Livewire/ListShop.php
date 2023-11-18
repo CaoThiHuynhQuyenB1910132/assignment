@@ -11,8 +11,6 @@ use Livewire\WithPagination;
 
 class ListShop extends Component
 {
-    use WithPagination;
-
     public mixed $searchTerm = '';
 
     public mixed $sortTerm = [];

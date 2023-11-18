@@ -14,7 +14,6 @@ class FeedbackRequest extends FormRequest
             'order_id' => ['required'],
             'content' => ['nullable'],
             'rating' => ['required'],
-            'image' => ['nullable']
         ];
     }
 }

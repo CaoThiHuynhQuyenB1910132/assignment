@@ -13,7 +13,6 @@ class OrderHistoryComponent extends Component
 {
     use WithPagination;
 
-    protected $perPage = 10;
     public string $filterBy = 'all';
 
     public mixed $searchTrackingNumber = '';
@@ -35,21 +34,21 @@ class OrderHistoryComponent extends Component
     {
         $this->dispatch('refreshSearch');
     }
-    private function getOrdersByStatus(string $status)
+    public function getOrdersByStatus(string $status)
     {
         if ($status === 'all') {
             return Order::all()->where('user_id', Auth::id());
         }
-        return Order::where('user_id', Auth::id())->where('status', $status)->get();
+        return Order::where('user_id', Auth::id())->where('status', $status)->orderByDesc('created_at')->get();
     }
 
     #[On('refreshSearch')]
+
     public function render(): View
     {
+        $orders = Order::where('tracking_number', 'like', '%' . $this->searchTrackingNumber . '%')->orderByDesc('created_at')->paginate(10);
         return view('livewire.order-history-component', [
-            'orders' => Order::where('tracking_number', 'like', '%' . $this->searchTrackingNumber . '%')
-                    ->orderBy('created_at', 'desc')
-                    ->paginate($this->perPage)
+            'orders' => $orders
         ]);
     }
 }

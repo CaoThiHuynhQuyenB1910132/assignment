@@ -63,17 +63,18 @@
                         <p class="txt-s-101 cl6">
                             {{$product->description}}
                         </p>
-                            <div class="flex-w flex-m p-t-55 p-b-30">
-                                <div class="wrap-num-product flex-w flex-m bg12 p-rl-10 m-r-30 m-b-30">
-                                    <div wire:click="decQuantity" class="btn-num-product-down flex-c-m fs-29"></div>
-                                    <input wire:model="quantity" value="{{ $product->quantity }}" class="txt-m-102 cl6 txt-center num-product" type="text" id="quantity" name="quantity"
-                                           value="1" readonly>
-                                    <div wire:click="incQuantity" class="btn-num-product-up flex-c-m fs-16"></div>
-                                </div>
-                                <button wire:click.prevent="addToCart({{ $product->id }})" type="button" class="btn flex-c-m txt-s-103 cl0 bg10 size-a-2 hov-btn2 trans-04 m-b-30">
-                                    Add to cart
-                                </button>
+                        <div class="flex-w flex-m p-t-55 p-b-30">
+                            <div class="wrap-num-product flex-w flex-m bg12 p-rl-10 m-r-30 m-b-30">
+                                <div wire:click="decQuantity" class="btn-num-product-down flex-c-m fs-29"></div>
+                                <input wire:model="quantity" value="{{ $product->quantity }}" class="txt-m-102 cl6 txt-center num-product" type="text" id="quantity" name="quantity"
+                                       value="1" readonly>
+                                <div wire:click="incQuantity" class="btn-num-product-up flex-c-m fs-16"></div>
                             </div>
+
+                            <button wire:click="addToCart({{ $product->id }})" type="button" class="btn flex-c-m txt-s-103 cl0 bg10 size-a-2 hov-btn2 trans-04 m-b-30">
+                                Add to cart
+                            </button>
+                        </div>
 
                         <div class="txt-s-107 p-b-6">
                             <span class="cl6">
@@ -83,17 +84,6 @@
                                 {{$product->category->name}}
                             </span>
                         </div>
-                        <div class="txt-s-107 p-b-6">
-                            <span class="cl6">
-                                Tags:
-                            </span>
-                            <a href="#" class="txt-s-107 cl9 hov-cl10 trans-04">
-                                Healthy,
-                            </a>
-                            <a href="#" class="txt-s-107 cl9 hov-cl10 trans-04">
-                                Organic
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -101,24 +91,14 @@
             <div class="tab02 p-t-80">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
+                        <a class="nav-link active" data-toggle="tab" href="#reviews" role="tab">Reviews ({{$feedbacks->count()}})</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews ({{$feedbacks->count()}})</a>
+                        <a class="nav-link" data-toggle="tab" href="#description" role="tab">Description</a>
                     </li>
                 </ul>
                 <div class="tab-content">
-
-                    <div class="tab-pane fade show active" id="description" role="tabpanel">
-                        <div class="p-t-30">
-                            <p class="txt-s-112 cl9">
-                                {{$product->description}}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade" id="reviews" role="tabpanel">
-
+                    <div class="tab-pane fade show active" id="reviews" role="tabpanel">
                         <div class="p-t-36">
                             <h5 class="txt-m-102 cl3 p-b-36">
                                 {{$feedbacks->count()}} review for {{ $product->name }}
@@ -161,30 +141,25 @@
                             {{ $feedbacks->links() }}
                         </div>
 
-                        @if (session()->has('message'))
-                            <div>{{ session('message') }}</div>
-                        @endif
+
 
                         @if (session()->has('comment_product_id'))
-                            <form action="{{ route('product.comment', ['id' => $product->id]) }}" method="POST" class="w-full p-t-42">
-                                @csrf
+                            <div class="w-full p-t-42">
+
                                 <h5 class="txt-m-102 cl3 p-b-20">
                                     Add a review
                                 </h5>
-                                <p class="txt-s-101 cl6 p-b-10">
-                                    Your email address will not be published. Required fields are marked *
-                                </p>
                                 <div class="flex-w flex-m p-b-3">
                                             <span class="txt-s-101 cl6 p-b-5 m-r-10">
-                                                Your Rating
+                                                Your Rating <span class="cl12">*</span>
                                             </span>
                                     <span class="wrap-rating fs-16 cl11 pointer">
-                                                <i class="item-rating pointer fa fa-star-o m-rl-1"></i>
-                                                <i class="item-rating pointer fa fa-star-o m-rl-1"></i>
-                                                <i class="item-rating pointer fa fa-star-o m-rl-1"></i>
-                                                <i class="item-rating pointer fa fa-star-o m-rl-1"></i>
-                                                <i class="item-rating pointer fa fa-star-o m-rl-1"></i>
-                                                <input class="dis-none" type="number" name="rating">
+                                                <i wire:click="updateRating(1)" class="item-rating pointer fa fa-star-o m-rl-1"></i>
+                                                <i wire:click="updateRating(2)" class="item-rating pointer fa fa-star-o m-rl-1"></i>
+                                                <i wire:click="updateRating(3)" class="item-rating pointer fa fa-star-o m-rl-1"></i>
+                                                <i wire:click="updateRating(4)" class="item-rating pointer fa fa-star-o m-rl-1"></i>
+                                                <i wire:click="updateRating(5)" class="item-rating pointer fa fa-star-o m-rl-1"></i>
+                                                <input wire:model="rating" value="{{ $rating }}" type="number" name="rating" class="dis-none">
                                             </span>
                                     @error('rating')
                                     <span class="text-danger">
@@ -194,25 +169,31 @@
                                 </div>
 
                                 <span class="txt-s-101 cl6">
-                                        Your review *
-                                    </span>
+                                    Your review
+                                </span>
                                 <div class="row p-t-12">
                                     <div class="col-12 p-b-30">
-
-                                            <textarea
-                                                class="txt-s-101 cl3 plh1 size-a-26 bo-all-1 bocl11 focus1 p-rl-20 p-tb-10"
-                                                name="content" placeholder="Your review *"></textarea>
+                                        <textarea
+                                            wire:model="content"
+                                            class="txt-s-101 cl3 plh1 size-a-26 bo-all-1 bocl11 focus1 p-rl-20 p-tb-10"
+                                            name="content" placeholder="Your review">
+                                        </textarea>
                                     </div>
                                 </div>
                                 <div class="flex-r">
-                                    @if($checkBought === true)
-                                        <button class="flex-c-m txt-s-103 cl0 bg10 size-a-27 hov-btn2 trans-04">
-                                            Submit
-                                        </button>
-                                    @endif
+                                    <button wire:click="addComment" type="button" class="flex-c-m txt-s-103 cl0 bg10 size-a-27 hov-btn2 trans-04">
+                                        Submit
+                                    </button>
                                 </div>
-                            </form>
+                            </div>
                         @endif
+                    </div>
+                    <div class="tab-pane fade" id="description" role="tabpanel">
+                        <div class="p-t-30">
+                            <p class="txt-s-112 cl9">
+                                {{$product->description}}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

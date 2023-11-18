@@ -24,6 +24,7 @@ class OrderController extends Controller
             ->when($searchInput, function ($query) use ($searchInput) {
                 return $query->where('tracking_number', 'like', '%' . $searchInput . '%');
             })
+            ->orderByDesc('created_at')
             ->paginate(10);
 
         return view('admin.order.index', compact('orders'));

@@ -4,6 +4,8 @@
             <div class="leftbar p-t-15">
                 <div class="size-a-11 pos-relative">
                     <input class="s-full bo-all-1 bocl15 p-rl-20" type="text" name="searchTrackingNumber"
+                           id="searchTrackingNumber"
+                           wire:key="searchTrackingNumber"
                            placeholder="Search your order by tracking number..."
                            wire:model.live.debounce.500ms="searchTrackingNumber"
                     />
@@ -65,7 +67,7 @@
                                                 <button style="color: #0a6aa1">Detail</button>
                                             </a>
                                             @if($order->status == 'pending')
-                                                <a href="{{ route('order.cancel', ['id' => $order->id]) }}" onclick="return confirm('Are you sure you want to cancel this product?')">
+                                                <a href="{{ route('order.cancel', ['id' => $order->id]) }}" onclick="return confirm('Are you sure you want to cancel this order?')">
                                                     <i class="fa fa-trash-o" style="color: darkred"></i>
                                                 </a>
                                             @endif

@@ -21,6 +21,10 @@ class ProductDetail extends Component
 
     public $product;
 
+    public $rating;
+
+    public $content;
+
     protected array $rules = [
         'quantity' => ['required', 'integer', 'min:1'],
     ];
@@ -29,7 +33,6 @@ class ProductDetail extends Component
     public function mount($productId): void
     {
         $this->product = Product::find($productId);
-
     }
 
     public function incQuantity(): void
@@ -46,7 +49,7 @@ class ProductDetail extends Component
         }
     }
 
-    public function addToCart($productId): void
+    public function addToCart(string|int $productId): void
     {
         if (! Auth::user()) {
             $this->redirectRoute('login');
@@ -71,17 +74,39 @@ class ProductDetail extends Component
 
         $newQuantity = $checkProductExists->quantity + $this->quantity;
 
-        if ($newQuantity > 10) {
-            $this->alert('warning', 'Maximum 10 items');
-            $this->dispatch('refreshProductCart');
+        if ($newQuantity <= 10) {
+            $checkProductExists->update([
+                'quantity' => $newQuantity,
+            ]);
+
+            $this->alert('success', 'Update cart success');
+            $this->dispatch('refreshMiniCart');
             return;
         }
+        $this->alert('warning', 'Maximum 10 items');
+    }
 
-        $checkProductExists->update([
-            'quantity' => $newQuantity,
+    public function updateRating(int $rating)
+    {
+        $this->rating = $rating;
+    }
+
+    public function addComment()
+    {
+        $data = $this->validate([
+            'content' => 'nullable|string',
+            'rating' => 'required|integer|min:1|max:5',
         ]);
-        $this->alert('success', 'Update cart success');
-        $this->dispatch('refreshMiniCart');
+
+        Feedback::create([
+            'user_id' => Auth::id(),
+            'product_id' => $this->product->id,
+            'content' => $data['content'],
+            'rating' => $data['rating']
+        ]);
+
+        $this->alert('success', 'Add Comment success');
+        $this->reset('rating', 'content');
     }
 
     public function render(): View

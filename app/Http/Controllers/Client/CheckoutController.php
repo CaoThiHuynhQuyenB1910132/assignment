@@ -42,16 +42,25 @@ class CheckoutController extends Controller
         $secureHash = hash_hmac('sha512', $hashData, $vnpHashSecret);
 
         if ($secureHash != $vnpSecureHash) {
-            return $message = 'Invalid literal character!';
+            $message = 'Invalid literal character!';
+
+            return view('client.order.thank-you', [
+                'message' => $message,
+            ]);
         }
 
         if (request('vnp_ResponseCode') != '00') {
-            return $message = 'Transaction failed!';
+            $message = 'Transaction failed!';
+
+            return view('client.order.thank-you', [
+                'message' => $message,
+            ]);
         }
 
         Order::where('tracking_number', request('vnp_TxnRef'))->update([
             'payment_status' => 'success'
         ]);
+
         return view('client.order.thank-you', [
             'message' => $message,
         ]);

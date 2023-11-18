@@ -15,17 +15,15 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row mb-2">
+                            <div class="row mb-3">
                                 <div class="col-xl-8">
                                     <div class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between">
                                         <form method="GET" action="{{ route('order') }}" class="col-auto">
-                                            @csrf
                                             <label for="searchInput" class="visually-hidden">Search</label>
                                             <input type="search" class="form-control" name="searchInput" id="searchInput" placeholder="Search...">
                                         </form>
 
                                         <form method="GET" action="{{ route('order') }}" class="col-auto">
-                                            @csrf
                                             <div class="col-auto">
                                                 <div class="col-auto">
                                                     <div class="d-flex align-items-center">
@@ -43,14 +41,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </form>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="table-responsive">
-                                <table class="table table-centered mb-0">
+                            <div class="table-responsive mb-2">
+                                <table class="table table-centered">
                                     <thead class="table-light">
                                     <tr>
                                         <th>Order Tracking Number</th>
