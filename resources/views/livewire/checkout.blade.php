@@ -154,14 +154,31 @@
                                         <input type="hidden" name="total" value="{{$cart->product->selling_price * $cart->quantity}}">
                                         <button
                                             wire:loading.attr="disabled"
-                                            wire:click="checkoutVNPay" type="submit" name="redirect" class="flex-c-m txt-s-105 cl0 bg10 size-a-21 hov-btn2 trans-04 p-rl-10" data-toggle="modal" data-target="#exampleModal">
+                                            wire:click="checkoutVNPay"
+                                            type="submit"
+                                            name="redirect"
+                                            class="flex-c-m txt-s-105 cl0 bg10 size-a-21 hov-btn2 trans-04 p-rl-10">
+                                            <i wire:loading
+                                               wire:target="checkoutVNPay"
+                                               class="fa-solid fa-spinner align-middle mr-2"></i>
+                                            <i wire:loading.attr="hidden"
+                                               wire:target="checkoutVNPay"
+                                               class="fa-regular fa-money-bill-1 align-bottom mr-2"></i>
                                             Order With VNpay
                                         </button>
                                     @break;
                                 @default
                                     <button
                                         wire:click="checkout"
-                                        wire:loading.attr="disabled" type="button" class="flex-c-m txt-s-105 cl0 bg10 size-a-21 hov-btn2 trans-04 p-rl-10" data-toggle="modal" data-target="#exampleModal">
+                                        wire:loading.attr="disabled"
+                                        type="submit"
+                                        class="flex-c-m txt-s-105 cl0 bg10 size-a-21 hov-btn2 trans-04 p-rl-10">
+                                        <i wire:loading
+                                           wire:target="checkout"
+                                           class="fa-solid fa-spinner align-middle mr-2"></i>
+                                        <i wire:loading.attr="hidden"
+                                           wire:target="checkout"
+                                           class="fa-regular fa-money-bill-1 align-bottom mr-2"></i>
                                         Place Order
                                     </button>
                             @endswitch

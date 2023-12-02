@@ -40,7 +40,7 @@
         <link rel="stylesheet" type="text/css" href="client/new/css/util.css">
         <link rel="stylesheet" type="text/css" href="client/new/css/main.css">
         <link rel="stylesheet" type="text/css" href="client/new/css/custom.css">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
         @stack('styles')
         @livewireStyles
