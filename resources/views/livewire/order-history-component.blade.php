@@ -1,19 +1,19 @@
 <div>
     <section class="bg0 p-t-85 p-b-45">
         <div class="container">
-            <div class="leftbar p-t-15">
-                <div class="size-a-11 pos-relative">
-                    <input class="s-full bo-all-1 bocl15 p-rl-20" type="text" name="searchTrackingNumber"
-                           id="searchTrackingNumber"
-                           wire:key="searchTrackingNumber"
-                           placeholder="Search your order by tracking number..."
-                           wire:model.live.debounce.500ms="searchTrackingNumber"
-                    />
-                    <button type="submit" class="flex-c-m fs-18 size-a-22 ab-t-r hov11">
-                        <img class="hov11-child trans-04" src="client/new/images/icons/icon-search.png" alt="ICON">
-                    </button>
-                </div>
-            </div>
+{{--            <div class="leftbar p-t-15">--}}
+{{--                <div class="size-a-11 pos-relative">--}}
+{{--                    <input class="s-full bo-all-1 bocl15 p-rl-20" type="text" name="searchTrackingNumber"--}}
+{{--                           id="searchTrackingNumber"--}}
+{{--                           wire:key="searchTrackingNumber"--}}
+{{--                           placeholder="Search your order by tracking number..."--}}
+{{--                           wire:model.live.debounce.500ms="searchTrackingNumber"--}}
+{{--                    />--}}
+{{--                    <button type="submit" class="flex-c-m fs-18 size-a-22 ab-t-r hov11">--}}
+{{--                        <img class="hov11-child trans-04" src="client/new/images/icons/icon-search.png" alt="ICON">--}}
+{{--                    </button>--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="tab02 p-t-80">
                 <ul class="nav nav-tabs nav-justified" role="tablist">
                     <li class="nav-item">
@@ -46,6 +46,7 @@
                                     <th>Order Shipping</th>
                                     <th>Action</th>
                                 </tr>
+
                                 @foreach($orders as $order)
                                     <tr class="table_row">
                                         <td class="column">
@@ -74,6 +75,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
+
                             </table>
                         </div>
                         @if(! $orders->count())

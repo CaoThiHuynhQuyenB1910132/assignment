@@ -1,11 +1,6 @@
-<div  class="home" id="page">
+<div class="home" id="page">
     <header class="header">
         <nav class="wrap-menu-desktop limiter-menu-desktop p-4">
-            <div class="left-header">
-                <div class="logo">
-                    <a href="{{ route('/') }}"><img src="client/new/images/img/hq.jpg" alt="IMG-LOGO"></a>
-                </div>
-            </div>
             <div class="center-header">
                 <div class="menu-desktop">
                     <ul class="main-menu">
@@ -14,7 +9,6 @@
                         </li>
                         <li><a href="{{ route('shop') }}">Shop</a></li>
                         @if (Auth::check())
-                            <div class="heading "></div>
                             <li><a href="{{ route('wishlist') }}">Wishlist</a></li>
                             <li><a href="{{ route('cart.detail') }}">Cart</a></li>
                         @endif
@@ -47,7 +41,6 @@
                             @else
                                 <li>
                                     <a href="{{route('login')}}">Login</a>
-
                                 </li>
                                 <li>
                                     <a href="{{route('register')}}">Register</a>

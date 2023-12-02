@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Order;
+use App\Models\OrderProduct;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
@@ -11,14 +12,11 @@ use Livewire\WithPagination;
 
 class OrderHistoryComponent extends Component
 {
-    use WithPagination;
-
     public string $filterBy = 'all';
-
-    public mixed $searchTrackingNumber = '';
 
     public mixed $orders;
 
+    public $orderId;
     public function mount(): void
     {
         $this->orders = $this->getOrdersByStatus($this->filterBy);
@@ -30,10 +28,6 @@ class OrderHistoryComponent extends Component
         $this->orders = $this->getOrdersByStatus($type);
     }
 
-    public function updatedsearchTrackingNumber()
-    {
-        $this->dispatch('refreshSearch');
-    }
     public function getOrdersByStatus(string $status)
     {
         if ($status === 'all') {
@@ -46,9 +40,11 @@ class OrderHistoryComponent extends Component
 
     public function render(): View
     {
-        $orders = Order::where('tracking_number', 'like', '%' . $this->searchTrackingNumber . '%')->orderByDesc('created_at')->paginate(10);
+        $orders = Order::orderByDesc('created_at')->paginate(10);
+//        $orderProducts = OrderProduct::where('order_id', $this->orderId)->get();
         return view('livewire.order-history-component', [
-            'orders' => $orders
+            'orders' => $orders,
+//            'orderProducts' => $orderProducts
         ]);
     }
 }

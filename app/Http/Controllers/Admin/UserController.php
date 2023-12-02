@@ -12,9 +12,13 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $users = User::query()->orderByDesc('created_at')->paginate(10);
+        $searchInput = $request->input('searchInput');
+        $users = User::query()->orderByDesc('created_at')
+            ->when($searchInput, function ($query) use ($searchInput) {
+            return $query->where('name', 'like', '%' . $searchInput . '%');
+        })->paginate(10);
 
         return view('admin.user.index', compact('users'));
     }

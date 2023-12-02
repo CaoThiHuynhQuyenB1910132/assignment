@@ -12,13 +12,9 @@ use Illuminate\View\View;
 
 class OrderHistoryController extends Controller
 {
-    public int $itemPerPage = 10;
     public function index(): View
     {
-        $orders = Order::where('user_id', Auth::user()->id)->orderByDesc('created_at')
-            ->paginate($this->itemPerPage);
-
-        return view('client.account.order-history', compact('orders'));
+        return view('client.account.order-history');
     }
 
     public function detail(string $id): View

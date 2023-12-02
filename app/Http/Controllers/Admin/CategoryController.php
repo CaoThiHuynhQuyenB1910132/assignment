@@ -7,19 +7,23 @@ use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Traits\ImageTrait;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
     use ImageTrait;
 
-    public int $itemPerPage = 10;
 
-    public function index(): View
+    public function index(Request $request): View
     {
+        $searchInput = $request->input('searchInput');
         $categories = Category::query()
             ->orderByDesc('created_at')
-            ->paginate($this->itemPerPage);
+            ->when($searchInput, function ($query) use ($searchInput) {
+                return $query->where('name', 'like', '%' . $searchInput . '%');
+            })
+            ->paginate(10);
         return view('admin.category.index', compact('categories'));
     }
 

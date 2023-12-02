@@ -8,13 +8,6 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
-                                <div class="page-title-right">
-                                    <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
-                                        <li class="breadcrumb-item active">Users</li>
-                                    </ol>
-                                </div>
                                 <h4 class="page-title">Users</h4>
                             </div>
                         </div>
@@ -30,10 +23,16 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-
+                                    <div class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between">
+                                        <form method="GET" action="{{ route('user') }}" class="col-auto">
+                                            @csrf
+                                            <label for="searchInput" class="visually-hidden">Search</label>
+                                            <input type="search" class="form-control" name="searchInput" id="searchInput" placeholder="Search...">
+                                        </form>
+                                    </div>
                                     <div class="table-responsive">
-                                        <table class="table table-centered table-striped dt-responsive nowrap w-100" id="products-datatable">
-                                            <thead>
+                                        <table class="datatable table table-stripped table table-hover table-center mb-0 mt-3">
+                                            <thead class="table-light">
                                             <tr>
                                                 <th>ID</th>
                                                 <th>User Name</th>
@@ -78,6 +77,11 @@
                                                 </tr>
                                             @endforeach
                                             </tbody>
+                                            @if(!$users->count()>0)
+                                                <tr>
+                                                    <th class="text-center" colspan="7">User not found!</th>
+                                                </tr>
+                                            @endif
                                         </table>
                                         <div class="pt-3">{{ $users->links() }}</div>
                                     </div>

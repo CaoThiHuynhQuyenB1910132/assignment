@@ -12,7 +12,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mb-2">
                         <div class="col-lg-12">
                             <form action="{{ route('update.user',['id' => $user->id] )}}" method="POST">
                                 @method('PUT')
@@ -49,9 +49,10 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i> Save</button>
-                                    </div>
+
+                                </div>
+                                <div class="col-lg-12 d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i> Save</button>
                                 </div>
                             </form>
                         </div>

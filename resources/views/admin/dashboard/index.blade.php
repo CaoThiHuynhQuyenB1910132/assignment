@@ -22,80 +22,95 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xl-5 col-lg-6">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card widget-flat">
-                        <div class="card-body">
-                            <div class="float-end">
-                                <i class="mdi mdi-account-multiple widget-icon"></i>
-                            </div>
-                            <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Customers</h5>
-                            <h3 class="mt-3 mb-3">{{ $users }}</h3>
-                        </div>
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="float-end">
+                        <i class="mdi mdi-account-multiple widget-icon"></i>
                     </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="card widget-flat">
-                        <div class="card-body">
-                            <div class="float-end">
-                                <i class="mdi mdi-cart-plus widget-icon"></i>
-                            </div>
-                            <h5 class="text-muted fw-normal mt-0" title="Number of Orders">Orders</h5>
-                            <h3 class="mt-3 mb-3">{{ $newOrders }}</h3>
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Customers</h5>
+                            <h3 class="my-2 py-1">{{ $users }}</h3>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card widget-flat">
-                        <div class="card-body">
-                            <div class="float-end">
-                                <i class="mdi mdi-currency-usd widget-icon"></i>
-                            </div>
-                            <h5 class="text-muted fw-normal mt-0" title="Average Revenue">Revenue</h5>
-                            <h3 class="mt-3 mb-3">{{ CurrencyHelper::format($monthlyRevenue) }}</h3>
+        </div>
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="float-end">
+                        <i class="mdi mdi-cart-plus widget-icon"></i>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Orders</h5>
+                            <h3 class="my-2 py-1">{{ $newOrders }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="float-end">
+                        <i class="mdi mdi-currency-usd widget-icon"></i>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Revenue</h5>
+                            <h3 class="my-2">{{ CurrencyHelper::format($monthlyRevenue) }}</h3>
                             <p class="mb-0 text-muted">
-                                <span class="text-nowrap">Revenue of Month: {{ $month }}</span>
+                                <span class="text-success me-2"> Revenue of Month: {{ $month }}</span>
                             </p>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-6">
-                    <div class="card widget-flat">
-                        <div class="card-body">
-                            <div class="float-end">
-                                <i class="mdi mdi-percent widget-icon"></i>
-                            </div>
-                            <h5 class="text-muted fw-normal mt-0" title="Growth">Bounce Rate</h5>
-                            <h3 class="mt-3 mb-3">+ {{ $bounceRate }}</h3>
+            </div>
+        </div>
+        <div class="col-lg-6 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="float-end">
+                        <i class="mdi mdi-percent widget-icon"></i>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Bounce Rate</h5>
+                            <h3 class="my-2">{{ $bounceRate }}</h3>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
+    </div>
 
-        <div class="col-xl-7 col-lg-6">
+    <div class="row">
+        <div class="col-lg-12">
             <div class="card card-h-100">
                 <div class="card-body">
+                    <h4 class="header-title">Revenue of years</h4>
                     <canvas id="revenue"></canvas>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-xl-3 col-lg-6 order-lg-1">
+        <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title">Total Sales</h4>
-
                     <canvas id="doughnutChart"></canvas>
-
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Total Customer</h4>
+                    <canvas id="getTopCustomersChart"></canvas>
                 </div>
             </div>
         </div>
@@ -178,40 +193,80 @@
         });
     </script>
     <script>
-        const categories = ['Category A', 'Category B', 'Category C', 'Category D', 'Category E'];
-        const percentages = [20, 30, 15, 10, 25];
+        $(document).ready(function() {
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '{{ route('top.sale') }}',
+                success: function(response) {
+                    const ctx = document.getElementById('doughnutChart');
+                    new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: response.labels,
+                            datasets: [{
+                                label: ' Phần trăm',
+                                data: response.data,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.6)',
+                                    'rgba(54, 162, 235, 0.6)',
+                                    'rgba(255, 206, 86, 0.6)',
+                                    'rgba(75, 192, 192, 0.6)',
+                                    'rgba(153, 102, 255, 0.6)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
 
-        // Lấy thẻ canvas từ DOM
-        const canvas = document.getElementById('doughnutChart');
-
-        // Tạo biểu đồ Doughnut bằng Chart.js
-        const ctx = canvas.getContext('2d');
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: categories,
-                datasets: [{
-                    data: percentages,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(54, 162, 235, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(75, 192, 192, 0.6)',
-                        'rgba(153, 102, 255, 0.6)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true
-            }
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+            });
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                type: 'GET',
+                dataType: 'json',
+                url: '{{ route('top.customer') }}',
+                success: function(response) {
+                    const ctx = document.getElementById('getTopCustomersChart');
+
+                    new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: response.labels,
+                            datasets: [{
+                                label: ' Phần trăm',
+                                data: response.data,
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
 @endsection

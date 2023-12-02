@@ -27,6 +27,8 @@ Route::get('auth/{provider}/callback', [SocialiteController::class, 'callback'])
 Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('revenue-month', [DashboardController::class, 'revenue'])->name('revenue');
+    Route::get('top-sale', [DashboardController::class, 'productChartSale'])->name('top.sale');
+    Route::get('top-customer', [DashboardController::class, 'getTopCustomersChart'])->name('top.customer');
 
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/create-user', [UserController::class, 'create'])->name('create.user');

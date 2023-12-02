@@ -29,7 +29,7 @@
                         <div class="card-body">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-md-6 p-b-50" >
+                                    <div class="col-md-12 p-b-50">
                                         <div class="p-r-15 p-rl-0-lg">
                                             <h4 class="txt-m-124 cl3 p-b-28 text-center">
                                                 Your Order Information
@@ -47,7 +47,7 @@
                                                             <div class="size-w-64 wrap-pic-w">
                                                                 <img src="{{ $orderProduct->product->productImages->count() ?
                                                                             asset('storage/' . $orderProduct->product->productImages[0]->image) : '' }}"
-                                                                     alt="IMG">
+                                                                     alt="IMG" style="width: 100px">
                                                             </div>
                                                             <div class="size-w-65 flex-col-l p-t-7">
                                                                 <div class="txt-m-103 cl3 hov-cl10 trans-04 p-b-3">
@@ -61,7 +61,8 @@
                                                                     </small>
                                                                 </span>
                                                             </div>
-                                                            <a href="{{ route('comment.product', ['id' => $orderProduct->product->id]) }}">sss</a>
+                                                            <a href="{{ route('comment.product', ['id' => $orderProduct->product->id]) }}"><img src="client/new/images/icons/icon-cmt.png" style="width: 15px"></a>
+
                                                         </div>
                                                     @endforeach
                                                         <div class="flex-w flex-m bo-b-1 bocl15 w-full p-tb-18">
@@ -85,12 +86,65 @@
                                         </div>
                                     @endif
                                 </div>
+                                <div class="p-l-15 p-rl-0-lg">
+                                    <h4 class="txt-m-124 cl3 p-b-28 text-center">
+                                        Your Review
+                                    </h4>
+                                    <div class="how-bor3 p-rl-30 p-t-32 p-b-66">
+                                        <div class="p-b-24">
+                                            <div class="flex-w flex-m p-b-3">
+                        <span class="txt-s-101 cl6 p-b-5 m-r-10">
+                            Your Rating
+                        </span>
+                                                <span class="wrap-rating fs-16 cl11 pointer">
+                            <i class="item-rating pointer fa fa-star-o m-rl-1"></i>
+                            <i class="item-rating pointer fa fa-star-o m-rl-1"></i>
+                            <i class="item-rating pointer fa fa-star-o m-rl-1"></i>
+                            <i class="item-rating pointer fa fa-star-o m-rl-1"></i>
+                            <i class="item-rating pointer fa fa-star-o m-rl-1"></i>
+                            <input wire:model="rating" class="dis-none" type="number" name="rating">
+                        </span>
+                                                @error('rating')
+                                                <span class="text-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="p-b-24">
+                                            <div class="p-b-24">
+                                                <div class="txt-s-101 cl6 p-b-10">
+                                                    Add Photo
+                                                </div>
+                                                <input
+                                                    wire:model="image"
+                                                    type="file"
+                                                    class="txt-s-120 cl3 size-a-21 bo-all-1 bocl15 p-rl-15 focus1"
+                                                    multiple
+                                                    name="image">
+                                            </div>
+                                        </div>
+                                        <div class="p-b-24">
+                                    <textarea
+                                        wire:model="content"
+                                        class="txt-s-101 cl3 plh1 size-a-26 bo-all-1 bocl11 focus1 p-rl-20 p-tb-10"
+                                        name="content" placeholder="Your review *"></textarea>
+                                        </div>
+                                        <div class="flex-w p-t text-center">
+                                            <button class="flex-c-m txt-s-105 cl0 bg10 size-a-39 hov-btn2 trans-04 p-rl-10 m-r-18 align-items-center">
+                                                Submit review
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
+
     </div>
         <style>
             @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');

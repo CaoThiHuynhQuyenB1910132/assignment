@@ -10,7 +10,7 @@
                                 <div class="txt-m-201 cl10 how-pos1-parent m-b-14">
                                     Special Product
                                     <div class="how-pos1">
-                                        <img src="images/icons/symbol-02.png" alt="IMG">
+                                        <img src="client/new/images/icons/symbol-02.png" alt="IMG">
                                     </div>
                                 </div>
                                 <h3 class="txt-l-101 cl3 respon1">
@@ -65,7 +65,7 @@
                 <div class="col-sm-10 order-md-1 col-md-6 m-rl-auto">
                     <div class="flex-m h-full p-t-38 p-r-50 p-r-0-md">
                         <div class="wrap-pic-max-s">
-                            <img src="images/other-13.jpg" alt="IMG">
+                            <img src="client/new/images/other-13.jpg" alt="IMG">
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ class Admin
         if(Auth::user()-> is_admin === 1) {
             return $next($request);
         }
-        toast('Bạn không có quyền truy cập vào trang này!!!', 'danger');
+        toast('You do not have permission to access this page!!!', 'danger');
         return redirect()->route('/');
 
     }

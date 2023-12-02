@@ -206,7 +206,7 @@
                                         <div class="how-bor2 p-b-40 p-t-35">
                                             <div class="main-cmt flex-w flex-sb-t">
                                                 <div class="wrap-pic-w size-w-71 p-t-5">
-                                                    <img src="client/new/images/avatar-04.jpg" alt="IMG">
+                                                    <img src="{{ asset('storage/'.$comment->user->avatar) }}" alt="AVATAR">
                                                 </div>
                                                 <div class="size-w-72 flex-col-l respon17">
                                                     <div class="flex-w p-b-13">
