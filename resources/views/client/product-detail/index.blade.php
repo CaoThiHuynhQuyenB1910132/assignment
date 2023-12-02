@@ -20,9 +20,9 @@
 
                             <div class="block1">
                                 <div class="block1-bg wrap-pic-w bo-all-1 bocl12 hov3 trans-04">
-                                    <img src="{{ $product->productImages->count() ? asset('storage/' . $product->productImages[0]->image) : '' }}">
+                                    <img src="{{ $product->productImages->count() ? asset('storage/' . $product->productImages[0]->image) : asset('images/empty-state.png') }}">
                                     <div class="block1-content flex-col-c-m p-b-46">
-                                        <a href="product-single.html"
+                                        <a href="{{ route('product.detail', ['id' => $product->id]) }}"
                                            class="txt-m-103 cl3 txt-center hov-cl10 trans-04 js-name-b1">
                                             {{ $product->name }}
                                         </a>
@@ -37,7 +37,7 @@
                                         <div class="block1-wrap-icon flex-c-m flex-w trans-05">
                                             <a href="{{ route('product.detail', ['id' => $product->id]) }}"
                                                class="block1-icon flex-c-m wrap-pic-max-w">
-                                                <img src="client/new/images/icons/icon-view.png" alt="ICON">
+                                                <img src="{{ asset('client/new/images/icons/icon-view.png') }}" alt="ICON">
                                             </a>
 
                                             <div wire:ignore.self>

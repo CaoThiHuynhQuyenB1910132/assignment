@@ -8,7 +8,7 @@
 
                     <li data-transition="fade">
 
-                        <img src="client/new/images/hero-bg.jpg" alt="IMG-BG" class="rev-slidebg">
+                        <img src="{{ asset('client/new/images/hero-bg.jpg') }}" alt="IMG-BG" class="rev-slidebg">
 
                         <div class="tp-caption tp-resizeme flex-c-m flex-w layer1"
                              data-frames='[{"delay":1700,"speed":1500,"frame":"0","from":"y:-150px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
@@ -17,7 +17,7 @@
                              data-height="['auto']" data-paddingtop="[0, 0, 0, 0]" data-paddingright="[15, 15, 15, 15]"
                              data-paddingbottom="[0, 0, 0, 0]" data-paddingleft="[15, 15, 15, 15]" data-basealign="slide"
                              data-responsive_offset="on">
-                            <img src="client/new/images/icons/symbol-19.png" alt="IMG">
+                            <img src="{{ asset('client/new/images/icons/symbol-19.png') }}" alt="IMG">
                         </div>
 
                         <h2 class="tp-caption tp-resizeme layer2"
@@ -40,13 +40,13 @@
                              data-height="['auto']" data-paddingtop="[0, 0, 0, 0]" data-paddingright="[15, 15, 15, 15]"
                              data-paddingbottom="[0, 0, 0, 0]" data-paddingleft="[15, 15, 15, 15]" data-basealign="slide"
                              data-responsive_offset="on">
-                            <img src="client/new/images/icons/symbol-18.png" alt="IMG">
+                            <img src="{{ asset('client/new/images/icons/symbol-18.png') }}" alt="IMG">
                         </div>
                     </li>
 
                     <li data-transition="fade">
 
-                        <img src="client/new/images/account.jpg" alt="IMG-BG" class="rev-slidebg">
+                        <img src="{{ asset('client/new/images/account.jpg') }}" alt="IMG-BG" class="rev-slidebg">
 
                         <div class="tp-caption tp-resizeme flex-c-m flex-w layer1"
                              data-frames='[{"delay":1700,"speed":1300,"frame":"0","from":"x:300px;skX:-85px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
@@ -55,7 +55,7 @@
                              data-height="['auto']" data-paddingtop="[0, 0, 0, 0]" data-paddingright="[15, 15, 15, 15]"
                              data-paddingbottom="[0, 0, 0, 0]" data-paddingleft="[15, 15, 15, 15]" data-basealign="slide"
                              data-responsive_offset="on">
-                            <img src="client/new/images/icons/symbol-19.png" alt="IMG">
+                            <img src="{{ asset('client/new/images/icons/symbol-19.png') }}" alt="IMG">
                         </div>
 
                         <h2 class="tp-caption tp-resizeme layer2"
@@ -78,7 +78,7 @@
                              data-height="['auto']" data-paddingtop="[0, 0, 0, 0]" data-paddingright="[15, 15, 15, 15]"
                              data-paddingbottom="[0, 0, 0, 0]" data-paddingleft="[15, 15, 15, 15]" data-basealign="slide"
                              data-responsive_offset="on">
-                            <img src="client/new/images/icons/symbol-18.png" alt="IMG">
+                            <img src="{{ asset('client/new/images/icons/symbol-18.png') }}" alt="IMG">
                         </div>
                     </li>
                 </ul>
@@ -93,7 +93,7 @@
                     <img src="{{ ('storage/' . $category->image) }}" alt="IMG">
                     <a href="shop-product-grid.html" class="s-full ab-t-l flex-col-c-m bg11 p-all-15 hov1-parent">
                         <div class="wrap-pic-max-w">
-                            <img src="client/new/images/icons/symbol-29.png" alt="IMG">
+                            <img src="{{ asset('client/new/images/icons/symbol-29.png') }}" alt="IMG">
                         </div>
                         <span class="txt-l-102 cl0 txt-center p-t-30 p-b-13">
                             {{ $category->name }}
@@ -114,7 +114,7 @@
             <div class="txt-center txt-m-201 cl10 how-pos1-parent m-b-14">
                 Featured Products
                 <div class="how-pos1">
-                    <img src="client/new/images/icons/symbol-02.png" alt="IMG">
+                    <img src="{{ asset('client/new/images/icons/symbol-02.png') }}" alt="IMG">
                 </div>
             </div>
             <h3 class="txt-center txt-l-101 cl3 respon1">
@@ -124,13 +124,11 @@
 
         <div class="wrap-slick5">
             <div class="slick5">
-
                 @foreach($products as $product)
                     <div class="item-slick5 p-all-15">
-
                         <div class="block1">
                             <div class="block1-bg wrap-pic-w bo-all-1 bocl12 hov3 trans-04">
-                                <img src="{{ $product->productImages->count() ? asset('storage/' . $product->productImages[0]->image) : '' }}">
+                                <img src="{{ $product->productImages->count() ? asset('storage/' . $product->productImages[0]->image) : asset('images/empty-state.png') }}">
                                 <div class="block1-content flex-col-c-m p-b-46">
                                     <a href="{{ route('product.detail',['id' => $product->id]) }}"
                                        class="txt-m-103 cl3 txt-center hov-cl10 trans-04 js-name-b1">
@@ -146,7 +144,7 @@
                                     </span>
                                     <div class="block1-wrap-icon flex-c-m flex-w trans-05">
                                         <a href="{{ route('product.detail',['id' => $product->id]) }}" class="block1-icon flex-c-m wrap-pic-max-w">
-                                            <img src="client/new/images/icons/icon-view.png" alt="ICON">
+                                            <img src="{{ asset('client/new/images/icons/icon-view.png') }}" alt="ICON">
                                         </a>
                                         <div>
                                             <livewire:add-cart-component :productId="$product->id" wire:key="addCart{{ $product->name }}"></livewire:add-cart-component>
@@ -160,10 +158,8 @@
                         </div>
                     </div>
                 @endforeach
-
             </div>
             <div class="wrap-dot-slick5 p-rl-15 p-t-40"></div>
         </div>
     </section>
-
 @endsection

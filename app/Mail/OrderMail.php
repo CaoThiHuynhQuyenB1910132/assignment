@@ -15,18 +15,14 @@ class OrderMail extends Mailable
     use SerializesModels;
 
     protected Order $order;
+    protected $orderProducts;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct(Order $order)
+    public function __construct(Order $order, $orderProducts)
     {
         $this->order = $order;
+        $this->orderProducts = $orderProducts;
     }
 
-    /**
-     * Get the message envelope.
-     */
     public function envelope(): Envelope
     {
         return new Envelope(
@@ -34,9 +30,6 @@ class OrderMail extends Mailable
         );
     }
 
-    /**
-     * Get the message content definition.
-     */
     public function content(): Content
     {
         return new Content(
@@ -47,17 +40,8 @@ class OrderMail extends Mailable
                 'trackingNumber' => $this->order->tracking_number,
                 'notes' => $this->order->notes,
                 'status' => $this->order->status,
+                'orderProducts' => $this->orderProducts,
             ],
         );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }

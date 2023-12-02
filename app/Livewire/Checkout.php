@@ -93,7 +93,7 @@ class Checkout extends Component
             }
         }
 
-        Mail::to($order->user->email)->send(new OrderMail($order));
+        Mail::to($order->user->email)->send(new OrderMail($order, $this->cartProducts));
         Cart::where('user_id', Auth::user()->id)->delete();
         return redirect()->route('thank.you');
 

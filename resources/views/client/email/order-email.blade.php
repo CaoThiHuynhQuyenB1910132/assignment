@@ -1,28 +1,17 @@
-{{--# Order Shipped--}}
-
-{{--## Your Order--}}
-{{--{{ $shippingAddress }} | {{ $total }} | {{ $trackingNumber }} | {{ $notes }} | {{ $status }}--}}
-
-{{--| Product  | QTY | Price   |--}}
-{{--| -------- | --- | ------- |--}}
-{{--| Computer | 1   | $1600   |--}}
-{{--| Phone    | 1   | $12     |--}}
-{{--| Dongle   | 24  | $2400   |--}}
-{{--| Total    |     | $4012.00 |--}}
-
-{{--Thanks,--}}
-{{--{{ config('app.name') }}--}}
 @component('mail::message')
-    # Xin chào,
+    # Order Details
 
-    Đơn hàng {{ $trackingNumber }} của bạn đã được gửi đi
-    - Địa chỉ: {{ $shippingAddress }}
-    - Giá: {{ $total }}
+    __Shipping Address: {{ $shippingAddress }}
+    __Total: {{ $total }}
+    __Tracking Number: {{ $trackingNumber }}
+    __Notes: {{ $notes }}
+    __Status: {{ $status }}
 
-    @component('mail::button', ['url' => 'https://example.com'])
-        Chi tiết đơn hàng
-    @endcomponent
+    __Order Products:
+    @foreach ($orderProducts as $orderProduct)
+        - {{ $orderProduct->product->name }} x ({{ $orderProduct->quantity }})
+    @endforeach
 
-    Cảm ơn bạn,
+    Thanks for your order!
     {{ config('app.name') }}
 @endcomponent
