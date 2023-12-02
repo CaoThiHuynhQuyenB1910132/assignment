@@ -5,7 +5,6 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-
                     <div class="row align-items-center">
                         <div class="col">
                             <h3 class="page-title mt-5">Update Category</h3>
@@ -37,8 +36,8 @@
                                                     <label>Featured</label>
                                                     <select class="mb-3 form-control @error('featured') is-invalid @enderror" name="featured">
                                                         <option value="">Choose a status</option>
-                                                        <option value="1" {{ $category->featured == '1' ? 'selected' : '' }}>Nổi Bật</option>
-                                                        <option value="0" {{ $category->featured == '0' ? 'selected' : '' }}>Không Nổi Bật</option>
+                                                        <option value="1" {{ $category->featured == '1' ? 'selected' : '' }}>Featured</option>
+                                                        <option value="0" {{ $category->featured == '0' ? 'selected' : '' }}>Normal</option>
                                                     </select>
 
                                                     @error('featured')
@@ -80,7 +79,6 @@
                                 <div class="col-lg-12 d-flex justify-content-center">
                                     <button type="submit" class="btn btn-success mt-2"><i class="mdi mdi-content-save"></i> Save</button>
                                 </div>
-
                             </form>
                         </div>
                     </div>

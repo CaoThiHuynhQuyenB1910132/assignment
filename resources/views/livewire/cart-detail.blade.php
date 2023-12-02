@@ -32,11 +32,11 @@
                                         <td class="column-1">
                                             <div class="flex-w flex-m">
                                                 <a href="{{ route('product.detail', ['id' => $product->product->id]) }}" class="wrap-pic-w size-w-40 bo-all-1 bocl12 m-r-30">
-                                                    <img src="{{ $product->product->productImages->count() ? asset('storage/' . $product->product->productImages[0]->image) : '' }}">
+                                                    <img src="{{ $product->product->productImages->count() ? asset('storage/' . $product->product->productImages[0]->image) : asset('images/empty-state.png') }}">
                                                 </a>
                                                 <span>
-                                            {{$product->product->name}}
-                                    </span>
+                                                        {{$product->product->name}}
+                                                </span>
                                             </div>
                                         </td>
                                         <td class="column-2">

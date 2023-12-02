@@ -73,7 +73,6 @@
                                                             type="file"
                                                             accept="image/*"
                                                             class="form-control"
-                                                            multiple
                                                             name="images[]">
 
                                                         @error('images.*')

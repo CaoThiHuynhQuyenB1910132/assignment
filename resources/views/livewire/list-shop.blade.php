@@ -13,7 +13,7 @@
                             <input class="s-full bo-all-1 bocl15 p-rl-20" type="text" name="searchTerm" wire:key="searchTerm"
                                    placeholder="Search products..." wire:model.live.debounce.500ms="searchTerm"/>
                             <button type="submit" class="flex-c-m fs-18 size-a-22 ab-t-r hov11">
-                                <img class="hov11-child trans-04" src="client/new/images/icons/icon-search.png" alt="ICON">
+                                <img class="hov11-child trans-04" src="{{ asset('client/new/images/icons/icon-search.png') }}" alt="ICON">
                             </button>
                         </div>
                         <!--Search Category-->
@@ -50,7 +50,7 @@
                             </h4>
                             <ul>
                                 <li class="flex-w flex-sb-t p-b-30">
-                                    @foreach($prs as $key => $product)
+                                    @foreach($bestSellers as $key => $product)
                                         <div wire:key="product-{{ $product->name }}">
                                             <a href="{{ route('product.detail', ['id' => $product->id]) }}" class="size-w-50 wrap-pic-w bo-all-1 bocl12 hov8 trans-04 my-3">
                                                 <img src="{{ $product->productImages->count() ? asset('storage/' . $product->productImages[0]->image) : '' }}" alt="{{ $product->name }}">
@@ -60,7 +60,7 @@
                                                     {{ $product->name }}
                                                 </a>
                                                 <span class="txt-m-104 cl9">
-                                                    {{ $product->selling_price }}
+                                                    {{ CurrencyHelper::format($product->selling_price) }}
                                                 </span>
                                             </div>
                                         </div>
@@ -94,7 +94,7 @@
                                         <div class="block1">
                                             <div class="block1-bg wrap-pic-w bo-all-1 bocl12 hov3 trans-04">
 
-                                                <img src="{{ $product->productImages->count() ? asset('storage/' . $product->productImages[0]->image) : '' }}" alt="{{ $product->name }}">
+                                                <img src="{{ $product->productImages->count() ? asset('storage/' . $product->productImages[0]->image) : asset('images/empty-state.png') }}" alt="{{ $product->name }}">
 
                                                 <div class="block1-content flex-col-c-m p-b-46">
                                                     <a href="{{ route('product.detail', ['id' => $product->id]) }}"
@@ -109,7 +109,7 @@
                                                     <div class="block1-wrap-icon flex-c-m flex-w trans-05">
                                                         <a href="{{ route('product.detail', ['id' => $product->id]) }}"
                                                            class="block1-icon flex-c-m wrap-pic-max-w">
-                                                            <img src="client/new/images/icons/icon-view.png" alt="ICON">
+                                                            <img src="{{ asset('client/new/images/icons/icon-view.png') }}" alt="ICON">
                                                         </a>
 
                                                         <div wire:ignore.self>
@@ -125,6 +125,11 @@
                                         </div>
                                     </div>
                                 @endforeach
+
+                                <div class="ml-2">
+                                    {{ $products->links('components.paginator') }}
+                                </div>
+
                                 @if(! $products->count())
                                     <tr class="text-center">
                                         <td colspan="100%">Not have products</td>

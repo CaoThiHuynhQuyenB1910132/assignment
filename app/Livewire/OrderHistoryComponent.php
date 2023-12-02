@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class OrderHistoryComponent extends Component
 {
@@ -41,7 +40,7 @@ class OrderHistoryComponent extends Component
     public function render(): View
     {
         $orders = Order::orderByDesc('created_at')->paginate(10);
-//        $orderProducts = OrderProduct::where('order_id', $this->orderId)->get();
+        //        $orderProducts = OrderProduct::where('order_id', $this->orderId)->get();
         return view('livewire.order-history-component', [
             'orders' => $orders,
 //            'orderProducts' => $orderProducts

@@ -16,18 +16,14 @@
                             <div class="card text-center">
                                 <div class="card-body">
                                     <div class="avatar-container">
-                                        @if($user->avatar === '')
-                                            <img src="admin1/assets/images/users/avatar-1.jpg" class="avatar rounded-circle avatar-lg img-thumbnail" alt="profile-image">
-                                        @else
-                                            <img src="{{ asset('storage/'.$user->avatar) }}" alt="{{ $user->name }}"
-                                                 class="avatar rounded-circle avatar-lg img-thumbnail" alt="profile-image">
-                                        @endif
+                                        <img src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('images/avatar-1.jpg') }}" alt="{{ $user->name }}"
+                                             class="avatar rounded-circle avatar-lg img-thumbnail" alt="profile-image">
                                     </div>
+
                                     <h4 class="mb-0 mt-2">{{ $user->name }}</h4>
                                     <p class="text-muted font-14">Admin</p>
 
                                     <div class="text-start mt-3">
-
                                         <p class="text-muted mb-2 font-13">
                                             <strong>Full Name :</strong> <span class="ms-2">{{ $user->name }}</span></p>
                                         <p class="text-muted mb-2 font-13"><strong>Gender :</strong><span class="ms-2">{{ $user->gender == 1 ? 'Woman' : 'Man' }}</span></p>
@@ -71,8 +67,8 @@
 
                                                                 @error('name')
                                                                 <span class="text-danger" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
                                                                 @enderror
                                                             </div>
                                                         </div>
@@ -87,8 +83,8 @@
 
                                                             @error('avatar.*')
                                                             <span class="text-danger" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
                                                             @enderror
                                                         </div>
                                                     </div>
@@ -103,8 +99,8 @@
                                                             </select>
                                                             @error('gender')
                                                             <span class="text-danger" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
                                                             @enderror
                                                         </div>
 
@@ -127,7 +123,7 @@
                                             </form>
                                         </div>
                                         <div class="tab-pane" id="aboutme">
-                                            <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-circle me-1"></i> Change to password</h5>
+                                            <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-circle me-1"></i> Change password</h5>
                                             <form action="{{ route('update.password',['id' => $user->id] )}}" method="POST">
                                                 @method('PUT')
                                                 @csrf
@@ -137,12 +133,12 @@
                                                     <div class="row">
                                                         <div class="col-lg-6 mb-3">
                                                             <div class="mb-3">
-                                                                <label >Old Password</label>
+                                                                <label >Current Password</label>
                                                                 <input type="password" name="password_old" id="password_old" class="form-control"  >
                                                                 @error('password_old')
                                                                 <span class="text-danger" role="alert">
-                                                     <strong>{{ $message }}</strong>
-                                                </span>
+                                                                     <strong>{{ $message }}</strong>
+                                                                </span>
                                                                 @enderror
                                                             </div>
 
@@ -154,8 +150,8 @@
 
                                                             @error('password_old')
                                                             <span class="text-danger" role="alert">
-                                                 <strong>{{ $message }}</strong>
-                                            </span>
+                                                                 <strong>{{ $message }}</strong>
+                                                            </span>
                                                             @enderror
                                                         </div>
 
@@ -165,8 +161,8 @@
 
                                                             @error('new_password_confirmation')
                                                             <span class="text-danger" role="alert">
-                                                 <strong>{{ $message }}</strong>
-                                            </span>
+                                                                 <strong>{{ $message }}</strong>
+                                                            </span>
                                                             @enderror
                                                         </div>
                                                     </div>

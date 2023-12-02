@@ -39,7 +39,9 @@
                                                                     <option value="cancel">cancel</option>
                                                                     <option value="refund">refund</option>
                                                                 </select>
-                                                                <button type="submit" class="btn btn-secondary"><i class="mdi mdi-filter"></i></button>
+                                                                <div style="margin-left: 15px">
+                                                                    <button type="submit" class="btn btn-secondary"><i class="mdi mdi-filter"></i></button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -71,21 +73,21 @@
                                                     </a>
                                                 </td>
 
-                                                <td>{{$order->created_at->format('d')}} - {{$order->created_at->format('m')}} - {{$order->created_at->format('Y')}}
+                                                <td>{{ $order->created_at->format('d') }} - {{ $order->created_at->format('m') }} - {{ $order->created_at->format('Y') }}
                                                     <small class="text-muted" id="invoice-time">
                                                         {{ $order->created_at->format('g:i A')}}
                                                     </small>
                                                 </td>
-                                                <td>{{$order->updated_at->format('d')}} - {{$order->updated_at->format('m')}} - {{$order->updated_at->format('Y')}}
+                                                <td>{{ $order->updated_at->format('d') }} - {{ $order->updated_at->format('m') }} - {{ $order->updated_at->format('Y') }}
                                                     <small class="text-muted" id="invoice-time">
                                                         {{ $order->updated_at->format('g:i A')}}
                                                     </small>
                                                 </td>
 
-                                                <td>{{$order->payment}}</td>
+                                                <td>{{ $order->payment }}</td>
 
                                                 <td>
-                                                    {{$order->payment_status}}
+                                                    {{ $order->payment_status }}
                                                 </td>
 
                                                 @if( $order->status === 'pending')

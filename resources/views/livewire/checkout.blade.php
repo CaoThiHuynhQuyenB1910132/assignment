@@ -24,7 +24,7 @@
                                      <span class="cl12">*</span>
                                  </span>
                                 <span class="cl10 hov12 js-toggle-panel1">
-                                    <img src="client/new/images/icons/edit.png" alt="IMG" width="20px">
+                                    <img src="{{ asset('client/new/images/icons/edit.png') }}" alt="IMG" width="20px">
                                     <span class="size-w-53 txt-s-101 cl6">
                                         Address
                                     </span>
@@ -105,8 +105,8 @@
                                 <div class="flex-w flex-sb-m txt-s-101 cl6 bo-b-1 bocl15 p-b-21 p-t-18">
                                 <span>
                                     {{ $cart->product->name }}
-                                    <img src="{{ $cart->product->productImages->count() ? asset('storage/' . $cart->product->productImages[0]->image) : '' }}" alt="contact-img" title="contact-img" class="rounded me-2" height="48">
-                                    <img class="m-rl-3" src="client/new/images/icons/icon-multiply.png" alt="icon">
+                                    <img src="{{ $cart->product->productImages->count() ? asset('storage/' . $cart->product->productImages[0]->image) : asset('images/empty-state.png') }}" alt="contact-img" title="contact-img" class="rounded me-2" height="48">
+                                    <img class="m-rl-3" src="{{ asset('client/new/images/icons/icon-multiply.png') }}" alt="icon">
                                     {{ $cart->quantity }}
                                 </span>
                                     <span>
@@ -137,7 +137,7 @@
                                     <label class="txt-m-103 cl6" for="payment">
                                         VNPay
                                         <div class="w-full p-l-29 p-t-16">
-                                            <img src="client/new/images/icons/vnpay.png" style="width: 100px" alt="IMG">
+                                            <img src="{{ asset('client/new/images/icons/vnpay.png') }}" style="width: 100px" alt="IMG">
                                         </div>
                                     </label>
                                 </div>

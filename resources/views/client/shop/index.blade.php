@@ -8,7 +8,7 @@
 
                        <li data-transition="fade">
 
-                           <img src="client/new/images/img/piza.jpg" alt="IMG-BG" class="rev-slidebg">
+                           <img src="{{ asset('client/new/images/img/piza.jpg') }}" alt="IMG-BG" class="rev-slidebg">
 
                            <div class="tp-caption tp-resizeme layer1"
                                 data-frames='[{"delay":500,"speed":1300,"frame":"0","from":"y:150px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'
@@ -39,7 +39,7 @@
 
                        <li data-transition="fade">
 
-                           <img src="client/new/images/img/q.jpg" alt="IMG-BG" class="rev-slidebg">
+                           <img src="{{ asset('client/new/images/img/q.jpg') }}" alt="IMG-BG" class="rev-slidebg">
 
                            <div class="tp-caption tp-resizeme layer1"
                                 data-frames='[{"delay":1800,"speed":1300,"frame":"0","from":"x:200px;skX:-85px;opacity:0;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'

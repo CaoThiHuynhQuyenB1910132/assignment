@@ -52,7 +52,7 @@
                                                             {{ $category->name }}
                                                     </td>
                                                     <td>
-                                                        <span class="badge badge-{{ $category->featured == 1 ? 'danger-lighten' : 'primary-lighten' }}">{{ $category->featured === 1 ? 'Nổi bât' : 'Bình thường' }}</span>
+                                                        <span class="badge badge-{{ $category->featured == 1 ? 'danger-lighten' : 'primary-lighten' }}">{{ $category->featured === 1 ? 'Featured' : 'Normal' }}</span>
                                                     </td>
 
                                                     <td class="table-action">

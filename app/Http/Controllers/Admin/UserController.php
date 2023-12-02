@@ -17,8 +17,8 @@ class UserController extends Controller
         $searchInput = $request->input('searchInput');
         $users = User::query()->orderByDesc('created_at')
             ->when($searchInput, function ($query) use ($searchInput) {
-            return $query->where('name', 'like', '%' . $searchInput . '%');
-        })->paginate(10);
+                return $query->where('name', 'like', '%' . $searchInput . '%');
+            })->paginate(10);
 
         return view('admin.user.index', compact('users'));
     }

@@ -37,8 +37,8 @@
 
                                                 @error('status')
                                                 <span class="text-danger" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
                                                 @enderror
                                             </div>
                                             <div class="col-lg-12 mb-3">
@@ -61,7 +61,6 @@
                                                         type="file"
                                                         accept="image/*"
                                                         class="form-control"
-                                                        multiple
                                                         name="images[]">
 
                                                     @error('images.*')

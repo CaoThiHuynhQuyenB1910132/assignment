@@ -11,6 +11,8 @@ use Livewire\WithPagination;
 
 class ListShop extends Component
 {
+    use WithPagination;
+
     public mixed $searchTerm = '';
 
     public mixed $sortTerm = [];
@@ -48,7 +50,7 @@ class ListShop extends Component
 
         $product = collect($topProducts)->pluck('product_id')->toArray();
 
-        $prs = Product::whereIn('id', $product)->get();
+        $bestSellers = Product::whereIn('id', $product)->get();
 
         return view('livewire.list-shop', [
             'products' =>  Product::where('name', 'like', '%' . $this->searchTerm . '%')
@@ -64,8 +66,8 @@ class ListShop extends Component
                             $subQuery->orderBy('selling_price', 'asc');
                         });
                 })
-                ->get(),
-            'prs' => $prs,
+                ->paginate(6),
+            'bestSellers' => $bestSellers,
         ]);
     }
 }

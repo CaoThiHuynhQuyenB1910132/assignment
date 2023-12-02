@@ -63,7 +63,7 @@
                             <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">Revenue</h5>
                             <h3 class="my-2">{{ CurrencyHelper::format($monthlyRevenue) }}</h3>
                             <p class="mb-0 text-muted">
-                                <span class="text-success me-2"> Revenue of Month: {{ $month }}</span>
+                                <span class="text-success me-2"> {{ __('Month :monthth', ['month' => $month]) }}</span>
                             </p>
                         </div>
                     </div>
@@ -115,22 +115,9 @@
             </div>
         </div>
     </div>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        const year = flatpickr("#year", {
-            mode: "single",
-            dateFormat: "Y",
-            onChange: function(selectedDates, dateStr, instance) {
-                const selectedYear = selectedDates[0].getFullYear();
-                $("#year").val(selectedYear);
-            }
-        });
-        $(".input-group-text").on("click", function() {
-            year.open();
-        });
+        $("#year").yearpicker()
 
         $(document).ready(function() {
             var getId = document.getElementById('revenue');
@@ -268,5 +255,4 @@
             });
         });
     </script>
-
 @endsection

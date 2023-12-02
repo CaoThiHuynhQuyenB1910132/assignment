@@ -7,13 +7,13 @@
                     <div class="col-md-3 col-lg-2 p-b-30">
                         <ul class="nav nav-tabs" role="tablist">
                             <li wire:ignore class="nav-item p-b-16">
-                                <a class="nav-link" data-toggle="tab" href="#profile" role="tab">My Profile</a>
+                                <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Profile</a>
                             </li>
                             <li wire:ignore class="nav-item p-b-16">
-                                <a class="nav-link" data-toggle="tab" href="#order" role="tab">Account Register</a>
+                                <a class="nav-link" data-toggle="tab" href="#order" role="tab">Edit Profile</a>
                             </li>
                             <li wire:ignore class="nav-item p-b-16">
-                                <a class="nav-link" data-toggle="tab" href="#addresses" role="tab">My Addresses</a>
+                                <a class="nav-link" data-toggle="tab" href="#addresses" role="tab">Addresses</a>
                             </li>
                             <li wire:ignore class="nav-item p-b-16">
                                 <a class="nav-link" data-toggle="tab" href="#comment" role="tab">Reviewed</a>
@@ -30,12 +30,11 @@
 
                     <div class="col-md-9 col-lg-10 p-b-30">
                         <div class="tab-content p-l-70 p-l-0-lg">
-                            <!--Profile-->
                             <div wire:ignore.self class="tab-pane fade show active" id="profile" role="tabpanel">
                                 <div class="bo-all-1 bocl15 flex-w flex-sb-m p-rl-30 p-tb-10 p-rl-15-ssm">
                                     <div class="row">
                                         <div class="wrap-pic-w bg-img3 w-full-ssm col-4">
-                                            <img src="{{ asset('storage/'.$user->avatar) }}"
+                                            <img src="{{ $user->avatar != '' ? asset('storage/' . $user->avatar) : asset('images/avatar-1.jpg') }}"
                                                  class="m-t-6 m-r-10" alt="profile-image">
                                         </div>
                                         <div class="size-w flex-col-m p-all-30 w-full-ssm col-8">
@@ -47,7 +46,6 @@
                                 </div>
                             </div>
 
-                            <!--Address-->
                             <div wire:ignore.self class="tab-pane fade" id="addresses" role="tabpanel">
                                 <livewire:location wire:key="location"></livewire:location>
                             </div>
@@ -59,7 +57,7 @@
                                             @method('PUT')
                                             @csrf
                                             <h5 class="txt-m-109 cl3 p-b-7">
-                                                Update Account
+                                                Update Profile
                                             </h5>
                                             <div class="row p-b-50">
                                                 <div class="col-sm-6 p-b-23">
@@ -137,17 +135,18 @@
                                             </div>
                                         </form>
                                     </div>
+
                                     <div class="size-w-63 flex-t w-full-sm p-b-35">
                                         <form action="{{ route('change.password',['id' => $user->id] )}}" method="POST" class="size-w-53 p-r-30">
                                             @method('PUT')
                                             @csrf
                                             <h5 class="txt-m-109 cl3 p-b-7">
-                                                Password change
+                                                Change Password
                                             </h5>
                                             <div class="col-12 p-b-23">
                                                 <div>
                                                     <div class="txt-s-101 cl6 p-b-10">
-                                                        Current password (leave blank to leave unchanged)
+                                                        Current password
                                                     </div>
                                                     <input class="txt-s-120 cl3 size-a-21 bo-all-1 bocl15 p-rl-20 focus1"
                                                            type="password" name="password_old" id="password_old">
@@ -161,7 +160,7 @@
                                             <div class="col-12 p-b-23">
                                                 <div>
                                                     <div class="txt-s-101 cl6 p-b-10">
-                                                        New password (leave blank to leave unchanged)
+                                                        New password
                                                     </div>
                                                     <input class="txt-s-120 cl3 size-a-21 bo-all-1 bocl15 p-rl-20 focus1"
                                                            type="password" name="password" id="password">
@@ -178,7 +177,7 @@
                                                         Confirm new password
                                                     </div>
                                                     <input class="txt-s-120 cl3 size-a-21 bo-all-1 bocl15 p-rl-20 focus1"
-                                                           type="password" name="new_password_confirmation"  id="password">
+                                                           type="password" name="new_password_confirmation" id="password">
                                                     @error('new_password_confirmation')
                                                     <span class="text-danger" role="alert">
                                                              <strong>{{ $message }}</strong>
@@ -196,7 +195,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--Reviewed-->
+
                             <div wire:ignore.self class="tab-pane fade" id="comment" role="tabpanel">
                                 <h5 class="txt-m-109 cl3 p-b-7">
                                     Reviewed
@@ -246,7 +245,7 @@
                                                         Order detail:
                                                     </span>
                                                     <span class="txt-s-121 cl6 pointer hov-cl10 trans-04 js-hide-reply-cmt p-b-13">
-                                                        <img src="client/new/images/icons/icon-close.png">
+                                                        <img src="{{ asset('client/new/images/icons/icon-close.png') }}">
                                                     </span>
                                                 </div>
                                                 <div>
@@ -254,15 +253,16 @@
                                                         <a href="{{ route('product.detail', ['id' => $comment->product->id]) }}" class="size-w-64 wrap-pic-w hov4">
                                                             <img src="{{ $comment->product->productImages->count() ? asset('storage/' . $comment->product->productImages[0]->image) : '' }}">
                                                         </a>
+
                                                         <div class="size-w-65 flex-col-l p-t-7">
                                                             <a href="{{ route('product.detail', ['id' => $comment->product->id]) }}" class="txt-m-103 cl3 hov-cl10 trans-04 p-b-3">
                                                                 {{ $comment->product->name }}
                                                             </a>
+
                                                             <span class="txt-s-106 cl9">
                                                                 {{ $comment->product->description }}
                                                             </span>
                                                         </div>
-                                                        <div class="size-w-25"></div>
                                                     </li>
                                                 </div>
                                             </div>
@@ -270,7 +270,7 @@
                                     @endforeach
                                         @if(! $comments->count())
                                             <div class="flex-t p-tb-8 m-r-30">
-                                                <img class="m-t-6 m-r-10" src="client/new/images/icons/icon-list.png" alt="IMG">
+                                                <img class="m-t-6 m-r-10" src="{{ asset('client/new/images/icons/icon-list.png')  }}" alt="IMG">
                                                 <span class="size-w-53 txt-s-101 cl6">
                                                     No review has been made yet.
                                                 </span>

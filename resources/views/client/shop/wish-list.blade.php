@@ -29,7 +29,7 @@
                                 <td class="column-1">
                                     <div class="flex-w flex-m">
                                         <div class="wrap-pic-w size-w-50 bo-all-1 bocl12 m-r-30">
-                                            <img src="{{ $wishlist->product->productImages->count() ? asset('storage/' . $wishlist->product->productImages[0]->image) : '' }}">
+                                            <img src="{{ $wishlist->product->productImages->count() ? asset('storage/' . $wishlist->product->productImages[0]->image) : asset('images/empty-state.png') }}">
                                         </div>
                                         <span>
                                         {{ $wishlist->product->name }}

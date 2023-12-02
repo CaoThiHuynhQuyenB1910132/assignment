@@ -132,13 +132,13 @@ class Checkout extends Component
 
         //        Mail::to($order->user->email)->send(new OrderMail($order));
 
-        $vnp_Url = 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
+        $vnpUrl = 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
 
-        if (! App::environment('local')) {
-            $vnp_Url = 'https://sandbox.vnpayment.vn/merchant_webapi/merchant.html';
+        if (!App::environment('local')) {
+            $vnpUrl = 'https://sandbox.vnpayment.vn/merchant_webapi/merchant.html';
         }
 
-        $vnpReturnUrl = 'https://fast-food.com/thank-you';
+        $vnpReturnUrl = env('VNPAY_CALLBACK');
 
         $vnpTmnCode = config('services.vnPay.vnp_tmn_code');
         $vnpHashSecret = config('services.vnPay.vnp_hash_secret');
@@ -185,11 +185,11 @@ class Checkout extends Component
             $query .= urlencode($key) . '=' . urlencode($value) . '&';
         }
 
-        $vnp_Url = $vnp_Url . '?' . $query;
+        $vnpUrl = $vnpUrl . '?' . $query;
 
         if (isset($vnpHashSecret)) {
             $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnpHashSecret);
-            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+            $vnpUrl .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
 
         $carts = Cart::where('user_id', Auth::id())->get();
@@ -198,7 +198,7 @@ class Checkout extends Component
             $cart->delete();
         }
 
-        return redirect($vnp_Url);
+        return redirect($vnpUrl);
     }
 
     public function render(): View

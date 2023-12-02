@@ -51,12 +51,10 @@
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
                                                     <td>
-                                                        @if($product->productImages->count())
-                                                            <img src="{{ asset('storage/' . $product->productImages[0]->image) }}"
-                                                                 alt="{{ $product->name }}" title="{{ $product->name }}"
-                                                                 class="rounded me-3"
-                                                                 height="48">
-                                                        @endif
+                                                        <img src="{{ $product->productImages->count() ? asset('storage/' . $product->productImages[0]->image) : asset('images/empty-state.png') }}"
+                                                             alt="{{ $product->name }}" title="{{ $product->name }}"
+                                                             class="rounded me-3"
+                                                             height="48">
                                                         <p class="m-0 d-inline-block">
                                                             <a href="{{ route('edit.product', ['id' => $product->id]) }}" class="text-body">{{ $product->name }}</a>
                                                         </p>
@@ -70,7 +68,7 @@
                                                         <span class="badge badge-{{ $product->featured == 1 ? 'success-lighten' : 'primary-lighten' }}">{{ $product->featured == 1 ? 'Featured' : 'Normal' }}</span>
                                                     </td>
 
-                                                    <td>{{ $product->selling_price }}</td>
+                                                    <td>{{ CurrencyHelper::format($product->selling_price) }}</td>
 
                                                     <td>
                                                         <span class="badge badge-{{ $product->stock == 1 ? 'success-lighten' : 'danger-lighten' }}">{{ $product->stock == 1 ? 'In Stock' : 'Out Stock' }}</span>

@@ -7,22 +7,19 @@
                         <div id="slide100-01">
                             <div class="wrap-main-pic-100 bo-all-1 bocl12 pos-relative">
                                 <div class="main-frame">
-                                    @foreach($product->productImages as $image)
-                                        <div class="wrap-main-pic">
-                                            <div class="main-pic">
-                                                <div class="image-container">
-
-                                                    <img src="{{ ('storage/' . $image->image) }}" alt="IMG-SLIDE">
-
-                                                </div>
+                                    <div class="wrap-main-pic">
+                                        <div class="main-pic">
+                                            <div class="image-container">
+                                                <img src="{{ $product->productImages->count() ? ('storage/' . $product->productImages[0]->image) : asset('images/empty-state.png') }}" alt="IMG-SLIDE">
                                             </div>
                                         </div>
-                                    @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-6 col-lg-6">
                     <div class="p-l-70 p-t-35 p-l-0-lg">
                         <h4 class="js-name1 txt-l-104 cl3 p-b-16">
@@ -101,7 +98,7 @@
                     <div class="tab-pane fade show active" id="reviews" role="tabpanel">
                         <div class="p-t-36">
                             <h5 class="txt-m-102 cl3 p-b-36">
-                                {{$feedbacks->count()}} review for {{ $product->name }}
+                                {{ $feedbacks->count()}} review for {{ $product->name }}
                             </h5>
 
                             @foreach($feedbacks as $feedback)
@@ -138,10 +135,10 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {{ $feedbacks->links() }}
+                            <div class="mt-4">
+                                {{ $feedbacks->links('components.paginator') }}
+                            </div>
                         </div>
-
-
 
                         @if (session()->has('comment_product_id'))
                             <div class="w-full p-t-42">

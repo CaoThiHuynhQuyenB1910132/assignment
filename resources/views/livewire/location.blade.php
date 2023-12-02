@@ -14,9 +14,26 @@
                                     {{ $address->name }}, {{ $address->phone }}, {{ $address->house_number }}, {{ $address->ward->name }},
                                     {{ $address->district->name}}, {{ $address->province->name }}
                                 </span>
+
                                 <span>
                                     <div class="fs-15 hov-cl10 pointer ">
-                                        <a class="lnr lnr-cross text-danger" wire:click="deleteAddress({{$address->id}})" onclick="return confirm('Are you sure?')"> </a>
+                                        <div class="d-inline" x-data="{ confirmDelete:false }">
+                                            <span
+                                                x-show="!confirmDelete" x-on:click="confirmDelete=true"
+                                                style="cursor: pointer"
+                                                class="text-danger">{{ __('Delete') }}</span>
+
+                                            <span
+                                                x-show="confirmDelete" x-on:click="confirmDelete=false"
+                                                wire:click="deleteAddress({{ $address->id }})"
+                                                style="cursor: pointer"
+                                                class="text-danger">{{ __('Yes') }}</span>
+
+                                            <span
+                                                x-show="confirmDelete" x-on:click="confirmDelete=false"
+                                                style="cursor: pointer"
+                                                class="text-info">{{ __('No') }}</span>
+                                        </div>
                                     </div>
                                 </span>
                             </li>
@@ -140,9 +157,13 @@
                                 @enderror
                             </div>
                         </div>
-                        <button class="flex-c-m txt-s-105 cl0 bg10 size-a-21 hov-btn2 w-25 trans-04 p-rl-10">
-                            Save
-                        </button>
+
+                        <div class="flex-w p-rl-15 p-t-17">
+                            <button type="submit"
+                                    class="flex-c-m txt-s-105 cl0 bg10 size-a-43 hov-btn2 trans-04 p-rl-10">
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
