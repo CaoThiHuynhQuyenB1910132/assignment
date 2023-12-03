@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 
@@ -53,10 +54,13 @@ class Order extends Model
         return $this->hasMany(ReviewOrder::class);
     }
 
+    public function coupons(): BelongsToMany
+    {
+        return $this->belongsToMany(Coupon::class);
+    }
+
     public static function getOrderById(string $id): Model|Collection|Builder|array|null
     {
         return Order::query()->findOrFail($id);
     }
-
-
 }

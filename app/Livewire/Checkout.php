@@ -5,21 +5,32 @@ namespace App\Livewire;
 use App\Mail\OrderMail;
 use App\Models\Address;
 use App\Models\Cart;
+use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Illuminate\Support\Facades\App;
 
 class Checkout extends Component
 {
-    public $cartProducts;
+    use LivewireAlert;
+
+    #[Rule('nullable|string')]
+    public string $couponCode;
+
+    public bool $couponApplied = false;
+
+    public mixed $cartProducts;
+
     public $total;
-    public $shippingAddresses;
+
+    public mixed $shippingAddresses;
 
     public mixed $paymentType;
 
@@ -33,13 +44,13 @@ class Checkout extends Component
     }
 
     #[Rule('required')]
-    public $addressId;
+    public mixed $addressId;
 
     #[Rule('required')]
-    public $payment;
+    public mixed $payment;
 
     #[Rule('nullable|max:255')]
-    public $notes;
+    public mixed $notes;
 
     protected $messages = [
         'addressId.required' => 'Choose your address',
@@ -93,10 +104,17 @@ class Checkout extends Component
             }
         }
 
-        Mail::to($order->user->email)->send(new OrderMail($order, $this->cartProducts));
-        Cart::where('user_id', Auth::user()->id)->delete();
-        return redirect()->route('thank.you');
+        //        Mail::to($order->user->email)->send(new OrderMail($order, $this->cartProducts));
+        Cart::where('user_id', Auth::user()->id)
+            ->delete();
 
+        if ($data['couponCode']) {
+            $findCoupon = Coupon::where('code', '=', $data['couponCode'])
+                ->first();
+            $findCoupon->decrement('amount');
+        }
+
+        return redirect()->route('thank.you');
     }
 
     public function checkoutVNPay()
@@ -130,7 +148,7 @@ class Checkout extends Component
             ]);
         }
 
-        //        Mail::to($order->user->email)->send(new OrderMail($order));
+        //        Mail::to($order->user->email)->send(new OrderMail($order, $this->cartProducts));
 
         $vnpUrl = 'http://sandbox.vnpayment.vn/paymentv2/vpcpay.html';
 
@@ -198,13 +216,49 @@ class Checkout extends Component
             $cart->delete();
         }
 
+        if ($data['couponCode']) {
+            $findCoupon = Coupon::where('code', '=', $data['couponCode'])
+                ->first();
+            $findCoupon->decrement('amount');
+        }
+
         return redirect($vnpUrl);
+    }
+
+    public function applyCoupon()
+    {
+        if ($this->couponApplied) {
+            return;
+        }
+
+        $validatedData = $this->validate([
+            'couponCode' => 'required|string|min:5|max:20',
+        ]);
+
+        $findCoupon = Coupon::where('code', '=', $validatedData['couponCode'])
+            ->where('amount', '>', 0)->first();
+
+        if (! $findCoupon) {
+            $this->alert('warning', 'Coupon code is invalid');
+            return;
+        }
+
+        if ($findCoupon->type == 'percent' && $this->total >= 150000) {
+            $this->alert('success', 'Apply Coupon Success');
+            $this->total = round($this->total - ($this->total * $findCoupon->discount_price) / 100);
+        }
+
+        if ($findCoupon->type == 'fixed' && $this->total >= 150000) {
+            $this->alert('success', 'Apply Coupon Success');
+            $this->total = round($this->total - $findCoupon->discount_price);
+        }
+
+        $this->couponApplied = true;
     }
 
     public function render(): View
     {
         $carts = Cart::where('user_id', Auth::id())->get();
-
         $addresses = Address::where('user_id', Auth::id())->get();
 
         return view('livewire.checkout', [

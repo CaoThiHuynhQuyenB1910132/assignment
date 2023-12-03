@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Client\CartController;
+use App\Http\Controllers\Client\ComingSoonController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\MyAccountController;
 use App\Http\Controllers\Client\CheckoutController;
@@ -60,6 +62,8 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/edit-order/{id}', [OrderController::class, 'edit'])->name('edit.order');
     Route::put('/update-order/{id}', [OrderController::class, 'update'])->name('update.order');
 
+    Route::get('/coupon', [CouponController::class, 'index'])->name('coupon');
+    Route::get('/delete-coupon/{id}', [CouponController::class, 'delete'])->name('delete.coupon');
 });
 
 Route::middleware(['shop-hours'])->group(function () {
@@ -72,7 +76,6 @@ Route::middleware(['shop-hours'])->group(function () {
     Route::post('product-comment/{id}', [ProductDetailController::class, 'addComment'])->name('product.comment');
 
     Route::get('cart-detail', [CartController::class, 'index'])->name('cart.detail')->middleware('auth');
-    //    Route::post('cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart')->middleware('auth');
 
     Route::get('account/{id}', [MyAccountController::class, 'index'])->name('account')->middleware('auth');
     Route::put('update-account/{id}', [MyAccountController::class, 'updateAccount'])->name('update.account')->middleware('auth');
@@ -86,9 +89,6 @@ Route::middleware(['shop-hours'])->group(function () {
     Route::get('order-history', [OrderHistoryController::class, 'index'])->name('order.history')->middleware('auth');
     Route::get('order-cancel/{id}', [OrderHistoryController::class, 'cancel'])->name('order.cancel')->middleware('auth');
     Route::get('comment-product/{id}', [OrderHistoryController::class, 'commentOnProduct'])->name('comment.product')->middleware('auth');
-
 });
 
-Route::get('/coming-soon', function () {
-    return view("client.comingsoon.index");
-});
+Route::get('/coming-soon', [ComingSoonController::class, '__invoke'])->name('coming-soon');

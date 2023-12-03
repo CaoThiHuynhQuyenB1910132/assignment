@@ -1,5 +1,5 @@
 <div>
-    <section class="how-overlay2 bg-img" style="background-image: url(client/new/images/img/pizza1.jpg);">
+    <section class="how-overlay2 bg-img" style="background-image: url({{ asset('client/new/images/img/pizza1.jpg') }});">
         <div class="container">
             <div class="txt-center p-t-160 p-b-165">
                 <h2 class="txt-l-101 cl0 txt-center p-b-14 respon1">
@@ -62,7 +62,7 @@
                             @endforeach
                             @if(! $addresses->count())
                                 <div class="flex-t p-tb-8 m-r-30">
-                                    <img class="m-t-6 m-r-10 m-auto" src="client/new/images/icons/icon-address.png" alt="IMG" width="20px">
+                                    <img class="m-t-6 m-r-10 m-auto" src="{{ asset('client/new/images/icons/icon-address.png') }}" alt="IMG" width="20px">
                                     <span class="size-w-53 txt-s-101 cl6">
                                         Please add address before payment.
                                     </span>
@@ -75,7 +75,7 @@
                                 </span>
                             @enderror
 
-                            <div>
+                            <div class="mb-3">
                                 <div class="flex-w flex-sb-m txt-m-103 cl6 bo-b-1 bocl15 p-b-21 p-t-18">
                                     Order notes
                                 </div>
@@ -85,6 +85,27 @@
                                 </textarea>
                             </div>
 
+                            <div class="flex-w flex-sb-m p-t-20">
+                                <div class="flex-w flex-m m-r-50 m-tb-10">
+                                    <input
+
+                                        class="size-a-31 bo-all-1 bocl15 txt-s-123 cl6 plh1 p-rl-20 focus1 m-r-30 m-tb-10"
+                                        type="text"
+                                        name="couponCode"
+                                        wire:model="couponCode"
+                                        id="couponCode"
+                                        placeholder="Coupon Code">
+                                    <div wire:click="applyCoupon" class="flex-c-m txt-s-105 cl0 bg10 size-a-32 hov-btn2 trans-04 pointer p-rl-10 m-tb-10">
+                                        apply coupon
+                                    </div>
+                                </div>
+                            </div>
+
+                            @error('couponCode')
+                                <span class="text-danger">
+                                    {{ $message }}
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-5 col-lg-4 p-b-50">
