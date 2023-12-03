@@ -74,6 +74,11 @@ class UserController extends Controller
     {
         $user = User::getUserById($id);
 
+        if ($user->carts->count() > 0 || $user->orders->count() > 0) {
+            toast('Order exists in your account. You cannot delete it', 'warning');
+            return redirect('user');
+        }
+
         $user->delete();
         toast('Deleted User', 'success');
         return redirect('user');
