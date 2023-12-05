@@ -11,7 +11,6 @@ class FeedbackRequest extends FormRequest
         return [
             'user_id' => ['required'],
             'product_id' => ['nullable'],
-            'order_id' => ['required'],
             'content' => ['nullable'],
             'rating' => ['required'],
         ];

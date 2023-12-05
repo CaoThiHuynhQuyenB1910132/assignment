@@ -116,7 +116,7 @@ class ProductController extends Controller
     {
         $product = Product::getProductById($id);
 
-        if ($product->carts->count() > 0) {
+        if ($product->carts || $product->orders->count() > 0) {
             toast('The product exists in the users shopping cart. You cannot delete it', 'warning');
             return redirect('product');
         } else {

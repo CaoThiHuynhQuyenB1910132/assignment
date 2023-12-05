@@ -91,7 +91,7 @@
             <div class="of-hidden size-w-2 respon2">
                 <div class="hov-img1 pos-relative">
                     <img src="{{ ('storage/' . $category->image) }}" alt="IMG">
-                    <a href="shop-product-grid.html" class="s-full ab-t-l flex-col-c-m bg11 p-all-15 hov1-parent">
+                    <div class="s-full ab-t-l flex-col-c-m bg11 p-all-15 hov1-parent">
                         <div class="wrap-pic-max-w">
                             <img src="{{ asset('client/new/images/icons/symbol-29.png') }}" alt="IMG">
                         </div>
@@ -103,7 +103,7 @@
                                 - {{$category->products->count()}} Items -
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         @endforeach
