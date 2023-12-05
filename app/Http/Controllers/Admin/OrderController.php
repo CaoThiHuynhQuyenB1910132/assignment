@@ -32,9 +32,13 @@ class OrderController extends Controller
 
     public function edit(string $id): View
     {
-        $order = Order::getOrderById($id);
+        $order = Order::where('id', $id)
+            ->with('coupons')
+            ->firstOrFail();
 
-        $orderProducts = OrderProduct::where('order_id', $order->id)->with('product')->get();
+        $orderProducts = OrderProduct::where('order_id', $order->id)
+            ->with('product')
+            ->get();
 
         return view('admin.order.edit', compact('order', 'orderProducts'));
     }

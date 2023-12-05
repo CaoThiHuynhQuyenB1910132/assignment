@@ -56,7 +56,8 @@ class Order extends Model
 
     public function coupons(): BelongsToMany
     {
-        return $this->belongsToMany(Coupon::class);
+        return $this->belongsToMany(Coupon::class)
+            ->withTimestamps();
     }
 
     public static function getOrderById(string $id): Model|Collection|Builder|array|null

@@ -112,6 +112,7 @@ class Checkout extends Component
             $findCoupon = Coupon::where('code', '=', $data['couponCode'])
                 ->first();
             $findCoupon->decrement('amount');
+            $findCoupon->orders()->attach($order->id);
         }
 
         return redirect()->route('thank.you');
@@ -220,6 +221,7 @@ class Checkout extends Component
             $findCoupon = Coupon::where('code', '=', $data['couponCode'])
                 ->first();
             $findCoupon->decrement('amount');
+            $findCoupon->orders()->attach($order->id);
         }
 
         return redirect($vnpUrl);
