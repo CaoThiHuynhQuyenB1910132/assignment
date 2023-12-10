@@ -194,6 +194,14 @@
                     </div>
                 </div>
             </div>
+
+            <div>
+                <div class="fb-like" data-href="{{ route('product.detail', ['id' => $product->id]) }}" data-share="true"></div>
+            </div>
+
+            <div>
+                <div class="fb-comments" data-href="{{ route('product.detail', ['id' => $product->id]) }}" data-width="100%" data-numposts="5"></div>
+            </div>
         </div>
     </section>
 </div>

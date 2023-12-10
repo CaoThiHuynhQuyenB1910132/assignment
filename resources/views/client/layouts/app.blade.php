@@ -114,7 +114,7 @@
         <script src="{{ asset('client/new/vendor/sweetalert/sweetalert.min.js') }}"></script>
         <script src="{{ asset('client/new/vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
         <script src="{{ asset('client/new/js/main.js') }}"></script>
-
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0&appId=305103102314059" nonce="nwPrgoPH"></script>
         @stack('scripts')
         @livewireScripts
     </body>
